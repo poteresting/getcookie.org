@@ -55,7 +55,7 @@
 
 <script>
 	function initTheme() {
-		const toggle = document.querySelector('.theme-toggle');
+		const toggles = document.querySelectorAll('.theme-toggle');
 
 		// Get initial theme - default to light
 		function getTheme(): 'light' | 'dark' {
@@ -73,10 +73,12 @@
 		// Set initial theme
 		setTheme(getTheme());
 
-		// Toggle on click
-		toggle?.addEventListener('click', () => {
-			const current = document.documentElement.getAttribute('data-theme');
-			setTheme(current === 'dark' ? 'light' : 'dark');
+		// Toggle on click - attach to all toggle buttons
+		toggles.forEach(toggle => {
+			toggle.addEventListener('click', () => {
+				const current = document.documentElement.getAttribute('data-theme');
+				setTheme(current === 'dark' ? 'light' : 'dark');
+			});
 		});
 	}
 

@@ -37,4 +37,32 @@
 	.data-table-wrapper :global(tr:hover td) {
 		background: var(--hover-bg);
 	}
+
+	@media (max-width: 900px) {
+		.data-table-wrapper {
+			overflow-x: auto;
+		}
+
+		.data-table-wrapper :global(table) {
+			font-size: 10px;
+			min-width: 100%;
+			table-layout: fixed;
+		}
+
+		.data-table-wrapper :global(th),
+		.data-table-wrapper :global(td) {
+			padding: 6px 8px;
+			word-wrap: break-word;
+			overflow-wrap: break-word;
+		}
+
+		.data-table-wrapper :global(th) {
+			font-size: 9px;
+		}
+
+		.data-table-wrapper :global(th:first-child),
+		.data-table-wrapper :global(td:first-child) {
+			width: 25%;
+		}
+	}
 </style>
