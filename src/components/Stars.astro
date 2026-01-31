@@ -1,0 +1,287 @@
+---
+// Starfield background component for dark mode
+---
+
+<div class="stars-container" id="stars-container">
+	<!-- Individual star layers for independent twinkling -->
+	<div class="star-layer s1"></div>
+	<div class="star-layer s2"></div>
+	<div class="star-layer s3"></div>
+	<div class="star-layer s4"></div>
+	<div class="star-layer s5"></div>
+	<div class="star-layer s6"></div>
+	<div class="star-layer s7"></div>
+	<div class="star-layer s8"></div>
+	<div class="star-layer s9"></div>
+	<div class="star-layer s10"></div>
+	<div class="star-layer s11"></div>
+	<div class="star-layer s12"></div>
+	<div class="nebula"></div>
+</div>
+
+<style>
+	.stars-container {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		z-index: 0;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		overflow: hidden;
+	}
+
+	:global(html[data-theme="dark"]) .stars-container {
+		opacity: 1;
+	}
+
+	.star-layer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	/* Individual star layers - left side */
+	.s1 {
+		background-image:
+			radial-gradient(1px 1px at 20px 50px, rgba(255,255,255,0.9), transparent),
+			radial-gradient(1px 1px at 45px 200px, rgba(255,255,255,0.8), transparent),
+			radial-gradient(1px 1px at 30px 350px, rgba(255,255,255,0.85), transparent);
+		background-size: 250px 700px;
+		background-position: left top;
+		background-repeat: repeat-y;
+		width: 25%;
+		animation: twinkle1 3s ease-in-out infinite;
+	}
+
+	.s2 {
+		background-image:
+			radial-gradient(1px 1px at 80px 120px, rgba(255,255,255,0.7), transparent),
+			radial-gradient(1px 1px at 120px 80px, rgba(255,255,255,0.75), transparent),
+			radial-gradient(1px 1px at 100px 320px, rgba(255,255,255,0.8), transparent);
+		background-size: 250px 700px;
+		background-position: left top;
+		background-repeat: repeat-y;
+		width: 25%;
+		animation: twinkle2 4s ease-in-out infinite;
+	}
+
+	.s3 {
+		background-image:
+			radial-gradient(1px 1px at 60px 280px, rgba(255,255,255,0.9), transparent),
+			radial-gradient(1px 1px at 150px 180px, rgba(255,255,255,0.7), transparent),
+			radial-gradient(1.5px 1.5px at 40px 150px, rgba(200,220,255,0.9), transparent);
+		background-size: 250px 700px;
+		background-position: left top;
+		background-repeat: repeat-y;
+		width: 25%;
+		animation: twinkle3 3.5s ease-in-out infinite;
+	}
+
+	.s4 {
+		background-image:
+			radial-gradient(1px 1px at 180px 250px, rgba(255,255,255,0.85), transparent),
+			radial-gradient(1px 1px at 70px 420px, rgba(255,255,255,0.7), transparent),
+			radial-gradient(1px 1px at 140px 380px, rgba(255,255,255,0.8), transparent);
+		background-size: 250px 700px;
+		background-position: left top;
+		background-repeat: repeat-y;
+		width: 25%;
+		animation: twinkle4 4.5s ease-in-out infinite;
+	}
+
+	.s5 {
+		background-image:
+			radial-gradient(1px 1px at 50px 500px, rgba(255,255,255,0.75), transparent),
+			radial-gradient(1px 1px at 200px 450px, rgba(255,255,255,0.9), transparent),
+			radial-gradient(1.5px 1.5px at 130px 400px, rgba(255,240,220,0.8), transparent);
+		background-size: 250px 700px;
+		background-position: left top;
+		background-repeat: repeat-y;
+		width: 25%;
+		animation: twinkle5 3.8s ease-in-out infinite;
+	}
+
+	.s6 {
+		background-image:
+			radial-gradient(1px 1px at 90px 550px, rgba(255,255,255,0.7), transparent),
+			radial-gradient(1px 1px at 160px 520px, rgba(255,255,255,0.8), transparent),
+			radial-gradient(1.5px 1.5px at 80px 600px, rgba(200,230,255,0.9), transparent);
+		background-size: 250px 700px;
+		background-position: left top;
+		background-repeat: repeat-y;
+		width: 25%;
+		animation: twinkle6 5s ease-in-out infinite;
+	}
+
+	/* Individual star layers - right side */
+	.s7 {
+		background-image:
+			radial-gradient(1px 1px at 30px 80px, rgba(255,255,255,0.8), transparent),
+			radial-gradient(1px 1px at 100px 150px, rgba(255,255,255,0.7), transparent),
+			radial-gradient(1px 1px at 60px 230px, rgba(255,255,255,0.9), transparent);
+		background-size: 250px 700px;
+		background-position: right top;
+		background-repeat: repeat-y;
+		width: 25%;
+		left: auto;
+		right: 0;
+		animation: twinkle1 4.2s ease-in-out infinite;
+	}
+
+	.s8 {
+		background-image:
+			radial-gradient(1px 1px at 150px 100px, rgba(255,255,255,0.75), transparent),
+			radial-gradient(1px 1px at 80px 300px, rgba(255,255,255,0.8), transparent),
+			radial-gradient(1.5px 1.5px at 50px 180px, rgba(255,240,220,0.9), transparent);
+		background-size: 250px 700px;
+		background-position: right top;
+		background-repeat: repeat-y;
+		width: 25%;
+		left: auto;
+		right: 0;
+		animation: twinkle2 3.3s ease-in-out infinite;
+	}
+
+	.s9 {
+		background-image:
+			radial-gradient(1px 1px at 180px 200px, rgba(255,255,255,0.7), transparent),
+			radial-gradient(1px 1px at 40px 380px, rgba(255,255,255,0.9), transparent),
+			radial-gradient(1px 1px at 120px 350px, rgba(255,255,255,0.8), transparent);
+		background-size: 250px 700px;
+		background-position: right top;
+		background-repeat: repeat-y;
+		width: 25%;
+		left: auto;
+		right: 0;
+		animation: twinkle3 4.8s ease-in-out infinite;
+	}
+
+	.s10 {
+		background-image:
+			radial-gradient(1px 1px at 200px 280px, rgba(255,255,255,0.85), transparent),
+			radial-gradient(1px 1px at 90px 450px, rgba(255,255,255,0.7), transparent),
+			radial-gradient(1px 1px at 160px 420px, rgba(255,255,255,0.9), transparent);
+		background-size: 250px 700px;
+		background-position: right top;
+		background-repeat: repeat-y;
+		width: 25%;
+		left: auto;
+		right: 0;
+		animation: twinkle4 3.6s ease-in-out infinite;
+	}
+
+	.s11 {
+		background-image:
+			radial-gradient(1px 1px at 70px 520px, rgba(255,255,255,0.75), transparent),
+			radial-gradient(1px 1px at 220px 480px, rgba(255,255,255,0.8), transparent),
+			radial-gradient(1.5px 1.5px at 140px 430px, rgba(200,220,255,0.8), transparent);
+		background-size: 250px 700px;
+		background-position: right top;
+		background-repeat: repeat-y;
+		width: 25%;
+		left: auto;
+		right: 0;
+		animation: twinkle5 5.2s ease-in-out infinite;
+	}
+
+	.s12 {
+		background-image:
+			radial-gradient(1px 1px at 110px 580px, rgba(255,255,255,0.7), transparent),
+			radial-gradient(1px 1px at 180px 550px, rgba(255,255,255,0.9), transparent),
+			radial-gradient(1.5px 1.5px at 100px 620px, rgba(200,230,255,0.9), transparent);
+		background-size: 250px 700px;
+		background-position: right top;
+		background-repeat: repeat-y;
+		width: 25%;
+		left: auto;
+		right: 0;
+		animation: twinkle6 4s ease-in-out infinite;
+	}
+
+	/* Nebula - simple opacity animation only */
+	.nebula {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.nebula::before,
+	.nebula::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.nebula::before {
+		background:
+			radial-gradient(ellipse 100% 50% at 50% 105%, rgba(15, 40, 90, 0.6), transparent 50%),
+			radial-gradient(ellipse 50% 40% at 85% 15%, rgba(40, 60, 120, 0.35), transparent 45%),
+			radial-gradient(ellipse 45% 35% at 15% 20%, rgba(30, 50, 100, 0.3), transparent 40%),
+			radial-gradient(ellipse 30% 60% at 8% 55%, rgba(25, 50, 95, 0.4), transparent 50%);
+		animation: nebulaPulse1 10s ease-in-out infinite;
+	}
+
+	.nebula::after {
+		background:
+			radial-gradient(ellipse 30% 60% at 92% 45%, rgba(35, 55, 105, 0.35), transparent 50%),
+			radial-gradient(ellipse 50% 40% at 20% 75%, rgba(20, 45, 85, 0.35), transparent 45%),
+			radial-gradient(ellipse 45% 35% at 80% 80%, rgba(30, 55, 100, 0.3), transparent 40%),
+			radial-gradient(ellipse 60% 40% at 50% 50%, rgba(20, 40, 80, 0.15), transparent 50%);
+		animation: nebulaPulse2 14s ease-in-out infinite;
+	}
+
+	/* Simple opacity-only nebula animations */
+	@keyframes nebulaPulse1 {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.6; }
+	}
+
+	@keyframes nebulaPulse2 {
+		0%, 100% { opacity: 0.7; }
+		50% { opacity: 1; }
+	}
+
+	/* Different twinkle animations with varied timing */
+	@keyframes twinkle1 {
+		0%, 100% { opacity: 0.6; }
+		50% { opacity: 1; }
+	}
+
+	@keyframes twinkle2 {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.5; }
+	}
+
+	@keyframes twinkle3 {
+		0%, 100% { opacity: 0.7; }
+		30% { opacity: 1; }
+		70% { opacity: 0.55; }
+	}
+
+	@keyframes twinkle4 {
+		0%, 100% { opacity: 0.8; }
+		25% { opacity: 0.5; }
+		75% { opacity: 1; }
+	}
+
+	@keyframes twinkle5 {
+		0%, 100% { opacity: 0.65; }
+		50% { opacity: 1; }
+	}
+
+	@keyframes twinkle6 {
+		0%, 100% { opacity: 0.55; }
+		35% { opacity: 1; }
+		65% { opacity: 0.7; }
+	}
+</style>

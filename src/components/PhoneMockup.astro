@@ -1,0 +1,1305 @@
+---
+interface Props {
+  discordVideo?: string;
+  telegramVideo?: string;
+  discordComingSoon?: boolean;
+}
+
+const { discordVideo, telegramVideo, discordComingSoon } = Astro.props;
+---
+
+<div class="phone-showcase" data-active="none">
+  <div class="phone phone-discord" data-phone="discord">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        {discordComingSoon ? (
+          <div class="phone-coming-soon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" opacity="0.5">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            <span class="coming-soon-text">Coming Soon</span>
+          </div>
+        ) : discordVideo ? (
+          <video
+            class="phone-video"
+            src={discordVideo}
+            loop
+            muted
+            playsinline
+            preload="metadata"
+          />
+        ) : (
+          <div class="phone-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" opacity="0.3">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+          </div>
+        )}
+        {!discordComingSoon && (
+          <button class="play-button" data-phone="discord" aria-label="Play Discord demo">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+          </button>
+        )}
+      </div>
+    </div>
+    <span class="phone-label">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#5865F2">
+        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+      </svg>
+    </span>
+  </div>
+
+  <div class="phone phone-telegram" data-phone="telegram">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        {telegramVideo ? (
+          <video
+            class="phone-video"
+            src={telegramVideo}
+            loop
+            muted
+            playsinline
+            preload="metadata"
+          />
+        ) : (
+          <div class="phone-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" opacity="0.3">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+          </div>
+        )}
+        <button class="play-button" data-phone="telegram" aria-label="Play Telegram demo">
+          <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <span class="phone-label">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#229ED9">
+        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+      </svg>
+    </span>
+  </div>
+</div>
+
+<script>
+  function initPhoneShowcase() {
+    document.querySelectorAll('.phone-showcase').forEach(showcase => {
+      const playButtons = showcase.querySelectorAll('.play-button');
+      const phones = showcase.querySelectorAll('.phone');
+      let lastInteractionTime = 0;
+
+      // Force load first frame of videos (fixes black screen on mobile)
+      showcase.querySelectorAll('.phone-video').forEach((video: any) => {
+        video.addEventListener('loadedmetadata', () => {
+          // Seek to tiny time to force first frame to show
+          video.currentTime = 0.001;
+        });
+        // Also try on loadeddata for browsers that need it
+        video.addEventListener('loadeddata', () => {
+          if (video.currentTime === 0) {
+            video.currentTime = 0.001;
+          }
+        });
+      });
+
+      // Setup mouse/touch movement tracking for each phone
+      phones.forEach(phone => {
+        const playBtn = phone.querySelector('.play-button');
+        const phoneName = phone.getAttribute('data-phone');
+        let hideTimeout: any = null;
+
+        const isVideoPlaying = () => {
+          const currentActive = showcase.getAttribute('data-active') || 'none';
+          return currentActive === phoneName || currentActive === phoneName + '-returning';
+        };
+
+        const isFullscreen = () => {
+          const currentActive = showcase.getAttribute('data-active') || 'none';
+          return currentActive === phoneName + '-full';
+        };
+
+        const showButton = () => {
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+          }
+          playBtn?.classList.remove('mouse-idle');
+          playBtn?.classList.remove('touch-idle');
+        };
+
+        const hideButtonAfterDelay = (delay = 1000) => {
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+          }
+          hideTimeout = setTimeout(() => {
+            // Only hide if video is STILL playing or fullscreen when timeout fires
+            if (isVideoPlaying() || isFullscreen()) {
+              playBtn?.classList.add('mouse-idle');
+              playBtn?.classList.add('touch-idle');
+            }
+            hideTimeout = null;
+          }, delay);
+        };
+
+        const clearHideTimeout = () => {
+          if (hideTimeout) {
+            clearTimeout(hideTimeout);
+            hideTimeout = null;
+          }
+        };
+
+        // Store clearHideTimeout on the phone element so we can call it when closing
+        (phone as any)._clearHideTimeout = clearHideTimeout;
+
+        // Desktop: mouse movement tracking
+        phone.addEventListener('mousemove', () => {
+          if (isVideoPlaying()) {
+            showButton();
+            hideButtonAfterDelay(700);
+          }
+        });
+
+        phone.addEventListener('mouseleave', () => {
+          clearHideTimeout();
+          if (isVideoPlaying()) {
+            playBtn?.classList.add('mouse-idle');
+          }
+        });
+
+        // Mobile: touch tracking for fullscreen X button
+        phone.addEventListener('touchstart', () => {
+          if (isFullscreen()) {
+            showButton();
+            hideButtonAfterDelay(900); // 0.9 seconds for mobile
+          }
+        }, { passive: true });
+      });
+
+      playButtons.forEach(playBtn => {
+        const handleInteraction = (e: any) => {
+          // Prevent double-firing from touch + click
+          const now = Date.now();
+          if (now - lastInteractionTime < 300) return;
+          lastInteractionTime = now;
+
+          e.preventDefault();
+          e.stopPropagation();
+          const phoneName = playBtn.getAttribute('data-phone') || '';
+          const phone = showcase.querySelector(`.phone-${phoneName}`);
+          const video: any = phone?.querySelector('.phone-video');
+          const currentActive = showcase.getAttribute('data-active') || 'none';
+          const isMobileNow = window.innerWidth <= 480;
+
+          // Helper to pause and reset all videos
+          const pauseAllVideos = () => {
+            showcase.querySelectorAll('.phone-video').forEach((v: any) => {
+              v.pause();
+              v.currentTime = 0;
+            });
+          };
+
+          if (currentActive === 'none') {
+            if (isMobileNow) {
+              // Mobile: go to centered first, then fullscreen
+              showcase.setAttribute('data-active', phoneName);
+              video?.play();
+              // Fade play button during animation
+              playBtn.classList.add('just-clicked');
+              playBtn.classList.add('touch-idle');
+              setTimeout(() => {
+                showcase.setAttribute('data-active', phoneName + '-full');
+                // Remove just-clicked after animation, touch-idle stays
+                playBtn.classList.remove('just-clicked');
+              }, 450);
+            } else {
+              // Desktop: just center and play, hide button until mouse moves
+              showcase.setAttribute('data-active', phoneName);
+              video?.play();
+              playBtn.classList.add('just-clicked');
+              const onMouseMove = () => {
+                playBtn.classList.remove('just-clicked');
+                document.removeEventListener('mousemove', onMouseMove);
+              };
+              document.addEventListener('mousemove', onMouseMove);
+            }
+          } else if (currentActive === phoneName + '-full') {
+            // Clicking fullscreen phone: zoom out first, then go to V-shape
+            showcase.setAttribute('data-active', phoneName + '-closing');
+            pauseAllVideos();
+            // Clear timeout and show play icon while closing
+            if ((phone as any)?._clearHideTimeout) (phone as any)._clearHideTimeout();
+            playBtn.classList.add('just-clicked'); // Show play icon, not X
+            playBtn.classList.remove('touch-idle');
+            setTimeout(() => {
+              showcase.setAttribute('data-active', 'none');
+              playBtn.classList.remove('just-clicked');
+            }, 500);
+          } else if (currentActive.endsWith('-full') || currentActive.endsWith('-closing')) {
+            // Clicking other phone while one is fullscreen/closing: switch to that phone
+            pauseAllVideos();
+            if (isMobileNow) {
+              showcase.setAttribute('data-active', phoneName);
+              video?.play();
+              setTimeout(() => {
+                showcase.setAttribute('data-active', phoneName + '-full');
+              }, 350);
+            } else {
+              showcase.setAttribute('data-active', phoneName);
+              video?.play();
+            }
+          } else if (currentActive === phoneName || currentActive === phoneName + '-returning') {
+            // Clicking centered phone (closing)
+            if (isMobileNow) {
+              // Mobile: go to fullscreen
+              showcase.setAttribute('data-active', phoneName + '-full');
+            } else {
+              // Desktop: close video, play icon stays visible
+              pauseAllVideos();
+              // Clear any pending hide timeout
+              if ((phone as any)?._clearHideTimeout) (phone as any)._clearHideTimeout();
+              playBtn.classList.remove('just-clicked');
+              playBtn.classList.remove('mouse-idle');
+              showcase.setAttribute('data-active', 'none');
+            }
+          } else {
+            // Clicking inactive phone: switch to that phone
+            pauseAllVideos();
+            if (isMobileNow) {
+              showcase.setAttribute('data-active', phoneName);
+              video?.play();
+              setTimeout(() => {
+                showcase.setAttribute('data-active', phoneName + '-full');
+              }, 350);
+            } else {
+              showcase.setAttribute('data-active', phoneName);
+              video?.play();
+            }
+          }
+        };
+
+        playBtn.addEventListener('click', handleInteraction);
+        // Add touchend for better mobile support on scaled elements
+        playBtn.addEventListener('touchend', handleInteraction, { passive: false });
+      });
+
+      // Close video when clicking outside the phone
+      const handleOutsideClick = (e: any) => {
+        const currentActive = showcase.getAttribute('data-active') || 'none';
+        if (currentActive === 'none') return;
+
+        // Check if click is on a phone or play button
+        const clickedPhone = (e.target as Element).closest('.phone');
+        const clickedPlayBtn = (e.target as Element).closest('.play-button');
+
+        // If clicked outside phones, close the video
+        if (!clickedPhone && !clickedPlayBtn) {
+          // Pause all videos
+          showcase.querySelectorAll('.phone-video').forEach((v: any) => {
+            v.pause();
+            v.currentTime = 0;
+          });
+
+          // Clear any hide timeouts
+          phones.forEach(phone => {
+            if ((phone as any)._clearHideTimeout) (phone as any)._clearHideTimeout();
+          });
+
+          // Reset play buttons
+          playButtons.forEach(btn => {
+            btn.classList.remove('just-clicked');
+            btn.classList.remove('mouse-idle');
+            btn.classList.remove('touch-idle');
+          });
+
+          showcase.setAttribute('data-active', 'none');
+        }
+      };
+
+      document.addEventListener('click', handleOutsideClick);
+      document.addEventListener('touchend', handleOutsideClick);
+    });
+  }
+
+  initPhoneShowcase();
+  document.addEventListener('astro:after-swap', initPhoneShowcase);
+</script>
+
+<style>
+  .phone-showcase {
+    position: relative;
+    width: 100%;
+    height: 580px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phone {
+    position: absolute;
+    background: none;
+    border: none;
+    padding: 30px;
+    margin: -30px;
+    cursor: default;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .phone .phone-frame,
+  .phone .phone-screen,
+  .phone .phone-notch,
+  .phone .phone-label {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .phone:focus {
+    outline: none;
+  }
+
+  .phone:focus-visible .phone-frame {
+    box-shadow: 0 0 0 3px var(--accent);
+  }
+
+  .phone-frame {
+    position: relative;
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    border-radius: 52px;
+    padding: 12px;
+    box-shadow:
+      0 30px 60px -15px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.5s ease;
+  }
+
+  .phone-notch {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 105px;
+    height: 30px;
+    background: #000;
+    border-radius: 15px;
+    z-index: 10;
+  }
+
+  .phone-notch::after {
+    content: '';
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: #1a1a2e;
+    border-radius: 50%;
+    box-shadow: inset 0 0 2px rgba(0, 100, 255, 0.3);
+  }
+
+  .phone-screen {
+    position: relative;
+    width: 240px;
+    height: 520px;
+    background: #000;
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phone-screen img,
+  .phone-screen video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .phone-video {
+    background: #000;
+  }
+
+  .phone-placeholder {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .phone-coming-soon {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 12px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  }
+
+  .coming-soon-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, border-color 0.3s ease, opacity 0.2s ease;
+    z-index: 10;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .play-button svg {
+    width: 44px;
+    height: 44px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .play-button .icon-play {
+    margin-left: 6px;
+  }
+
+  .play-button .icon-close {
+    display: none;
+  }
+
+  .play-button:hover {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* When video is playing (active state): hide button, show X on hover */
+  .phone-showcase[data-active="discord"] .phone-discord .play-button,
+  .phone-showcase[data-active="telegram"] .phone-telegram .play-button,
+  .phone-showcase[data-active="discord-returning"] .phone-discord .play-button,
+  .phone-showcase[data-active="telegram-returning"] .phone-telegram .play-button {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .phone-showcase[data-active="discord"] .phone-discord:hover .play-button:not(.just-clicked):not(.mouse-idle),
+  .phone-showcase[data-active="telegram"] .phone-telegram:hover .play-button:not(.just-clicked):not(.mouse-idle),
+  .phone-showcase[data-active="discord-returning"] .phone-discord:hover .play-button:not(.just-clicked):not(.mouse-idle),
+  .phone-showcase[data-active="telegram-returning"] .phone-telegram:hover .play-button:not(.just-clicked):not(.mouse-idle) {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Hide button when mouse/touch is idle */
+  .play-button.mouse-idle,
+  .play-button.touch-idle {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Hide button immediately after click until mouse moves */
+  .play-button.just-clicked {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Keep showing play icon (not X) while fading out */
+  .play-button.just-clicked .icon-play {
+    display: block !important;
+  }
+
+  .play-button.just-clicked .icon-close {
+    display: none !important;
+  }
+
+  .phone-showcase[data-active="discord"] .phone-discord .play-button .icon-play,
+  .phone-showcase[data-active="telegram"] .phone-telegram .play-button .icon-play,
+  .phone-showcase[data-active="discord-returning"] .phone-discord .play-button .icon-play,
+  .phone-showcase[data-active="telegram-returning"] .phone-telegram .play-button .icon-play {
+    display: none;
+  }
+
+  .phone-showcase[data-active="discord"] .phone-discord .play-button .icon-close,
+  .phone-showcase[data-active="telegram"] .phone-telegram .play-button .icon-close,
+  .phone-showcase[data-active="discord-returning"] .phone-discord .play-button .icon-close,
+  .phone-showcase[data-active="telegram-returning"] .phone-telegram .play-button .icon-close {
+    display: block;
+  }
+
+  /* Desktop only: add scale on hover */
+  @media (min-width: 481px) {
+    .play-button {
+      transition: background 0.3s ease, border-color 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
+    }
+
+    .play-button:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  }
+
+  .play-button:hover svg {
+    color: #fff;
+  }
+
+  /* Hide play button in fullscreen states */
+  .phone-showcase[data-active="telegram-full"] .play-button,
+  .phone-showcase[data-active="discord-full"] .play-button,
+  .phone-showcase[data-active="telegram-closing"] .play-button,
+  .phone-showcase[data-active="discord-closing"] .play-button {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .phone-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    transition: color 0.3s ease;
+  }
+
+  /* Telegram phone - left, larger, in front by default */
+  .phone-telegram {
+    left: 10%;
+    z-index: 2;
+    transform: scale(1) translateX(-20px) rotate(-2deg);
+  }
+
+  /* Discord phone - right, smaller, behind by default */
+  .phone-discord {
+    right: 10%;
+    z-index: 1;
+    transform: scale(0.82) translateX(20px) rotate(2deg);
+    filter: brightness(0.65);
+  }
+
+  /* When Discord is active - center it */
+  .phone-showcase[data-active="discord"] .phone-discord {
+    z-index: 2;
+    right: 50%;
+    left: auto;
+    transform: scale(1.35) translateX(37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  .phone-showcase[data-active="discord"] .phone-telegram {
+    z-index: 1;
+    left: 0%;
+    right: auto;
+    transform: scale(0.65) rotate(-6deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* When Telegram is active - center it */
+  .phone-showcase[data-active="telegram"] .phone-telegram {
+    z-index: 2;
+    left: 50%;
+    right: auto;
+    transform: scale(1.35) translateX(-37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  .phone-showcase[data-active="telegram"] .phone-discord {
+    z-index: 1;
+    right: 0%;
+    left: auto;
+    transform: scale(0.65) rotate(6deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Desktop: fullscreen states just show centered (no actual fullscreen) */
+  .phone-showcase[data-active="discord-full"] .phone-discord {
+    z-index: 2;
+    right: 50%;
+    left: auto;
+    transform: scale(1.35) translateX(37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  .phone-showcase[data-active="discord-full"] .phone-telegram {
+    z-index: 1;
+    left: 0%;
+    right: auto;
+    transform: scale(0.65) rotate(-6deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .phone-showcase[data-active="telegram-full"] .phone-telegram {
+    z-index: 2;
+    left: 50%;
+    right: auto;
+    transform: scale(1.35) translateX(-37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  .phone-showcase[data-active="telegram-full"] .phone-discord {
+    z-index: 1;
+    right: 0%;
+    left: auto;
+    transform: scale(0.65) rotate(6deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Default state: hover on Discord - center it (same as click) */
+  .phone-showcase[data-active="none"] .phone-discord:hover {
+    z-index: 2;
+    right: 50%;
+    left: auto;
+    transform: scale(1.35) translateX(37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  .phone-showcase[data-active="none"] .phone-discord:hover .phone-frame {
+    box-shadow:
+      0 35px 70px -15px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.15),
+      0 0 40px rgba(88, 101, 242, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* When hovering Discord, fade out Telegram */
+  .phone-showcase[data-active="none"]:has(.phone-discord:hover) .phone-telegram {
+    z-index: 1;
+    left: 0%;
+    right: auto;
+    transform: scale(0.65) rotate(-6deg);
+    opacity: 0;
+  }
+
+  /* Default state: hover on Telegram - center it (same as click) */
+  .phone-showcase[data-active="none"] .phone-telegram:hover {
+    z-index: 2;
+    left: 50%;
+    right: auto;
+    transform: scale(1.35) translateX(-37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  .phone-showcase[data-active="none"] .phone-telegram:hover .phone-frame {
+    box-shadow:
+      0 35px 70px -15px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.15),
+      0 0 40px rgba(88, 101, 242, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* When hovering Telegram, fade out Discord */
+  .phone-showcase[data-active="none"]:has(.phone-telegram:hover) .phone-discord {
+    z-index: 1;
+    right: 0%;
+    left: auto;
+    transform: scale(0.65) rotate(6deg);
+    opacity: 0;
+  }
+
+  /* Active phone stays locked in center */
+  .phone-showcase[data-active="discord"] .phone-discord,
+  .phone-showcase[data-active="discord"] .phone-discord:hover {
+    z-index: 2;
+    right: 50%;
+    left: auto;
+    transform: scale(1.35) translateX(37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  /* Active state: always glow (selected) */
+  .phone-showcase[data-active="discord"] .phone-discord .phone-frame,
+  .phone-showcase[data-active="discord"] .phone-discord:hover .phone-frame {
+    box-shadow:
+      0 35px 70px -15px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.15),
+      0 0 40px rgba(88, 101, 242, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .phone-showcase[data-active="telegram"] .phone-telegram,
+  .phone-showcase[data-active="telegram"] .phone-telegram:hover {
+    z-index: 2;
+    left: 50%;
+    right: auto;
+    transform: scale(1.35) translateX(-37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  /* Active state: always glow (selected) */
+  .phone-showcase[data-active="telegram"] .phone-telegram .phone-frame,
+  .phone-showcase[data-active="telegram"] .phone-telegram:hover .phone-frame {
+    box-shadow:
+      0 35px 70px -15px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.15),
+      0 0 40px rgba(88, 101, 242, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* Desktop closing state: keep glow while transitioning back */
+  .phone-showcase[data-active="discord-closing"] .phone-discord {
+    z-index: 2;
+    right: 50%;
+    left: auto;
+    transform: scale(1.35) translateX(37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  .phone-showcase[data-active="discord-closing"] .phone-discord .phone-frame {
+    box-shadow:
+      0 35px 70px -15px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.15),
+      0 0 40px rgba(88, 101, 242, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .phone-showcase[data-active="discord-closing"] .phone-telegram {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .phone-showcase[data-active="telegram-closing"] .phone-telegram {
+    z-index: 2;
+    left: 50%;
+    right: auto;
+    transform: scale(1.35) translateX(-37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  .phone-showcase[data-active="telegram-closing"] .phone-telegram .phone-frame {
+    box-shadow:
+      0 35px 70px -15px rgba(0, 0, 0, 0.7),
+      0 0 0 1px rgba(255, 255, 255, 0.15),
+      0 0 40px rgba(88, 101, 242, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .phone-showcase[data-active="telegram-closing"] .phone-discord {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Desktop returning state: phone stays centered but no glow */
+  .phone-showcase[data-active="discord-returning"] .phone-discord {
+    z-index: 2;
+    right: 50%;
+    left: auto;
+    transform: scale(1.35) translateX(37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  .phone-showcase[data-active="discord-returning"] .phone-telegram {
+    z-index: 1;
+    left: 0%;
+    right: auto;
+    transform: scale(0.65) rotate(-6deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .phone-showcase[data-active="telegram-returning"] .phone-telegram {
+    z-index: 2;
+    left: 50%;
+    right: auto;
+    transform: scale(1.35) translateX(-37%) rotate(0deg);
+    filter: brightness(1);
+  }
+
+  .phone-showcase[data-active="telegram-returning"] .phone-discord {
+    z-index: 1;
+    right: 0%;
+    left: auto;
+    transform: scale(0.65) rotate(6deg);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .phone-showcase {
+      height: 480px;
+    }
+
+    .phone-frame {
+      border-radius: 44px;
+      padding: 10px;
+    }
+
+    .phone-notch {
+      width: 85px;
+      height: 24px;
+      top: 14px;
+      border-radius: 12px;
+    }
+
+    .phone-notch::after {
+      width: 8px;
+      height: 8px;
+      right: 18px;
+    }
+
+    .phone-screen {
+      width: 190px;
+      height: 410px;
+      border-radius: 34px;
+    }
+
+    .phone-telegram {
+      left: 5%;
+    }
+
+    .phone-discord {
+      right: 5%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .phone-showcase {
+      height: 400px;
+    }
+
+    .phone-frame {
+      border-radius: 36px;
+      padding: 8px;
+    }
+
+    .phone-notch {
+      width: 70px;
+      height: 20px;
+      top: 12px;
+      border-radius: 10px;
+    }
+
+    .phone-notch::after {
+      width: 6px;
+      height: 6px;
+      right: 16px;
+    }
+
+    .phone-screen {
+      width: 155px;
+      height: 335px;
+      border-radius: 28px;
+    }
+
+    .phone-telegram {
+      left: 0;
+      transform: scale(1) translateX(-10px) rotate(-2deg);
+    }
+
+    .phone-discord {
+      right: 0;
+      transform: scale(0.82) translateX(10px) rotate(2deg);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .phone-showcase {
+      height: 340px;
+      margin-top: 40px;
+    }
+
+    .phone-frame {
+      border-radius: 22px;
+      padding: 5px;
+      transition: none !important;
+    }
+
+    .phone-screen {
+      width: 90px;
+      height: 195px;
+      border-radius: 18px;
+    }
+
+    .phone-notch {
+      width: 40px;
+      height: 12px;
+      top: 7px;
+      border-radius: 6px;
+    }
+
+    .phone-notch::after {
+      width: 4px;
+      height: 4px;
+      right: 9px;
+    }
+
+    .phone-label {
+      font-size: 10px;
+    }
+
+    /* Smaller coming soon for mobile */
+    .phone-coming-soon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .coming-soon-text {
+      font-size: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* Smaller play button for mobile - use margin centering instead of transform */
+    .play-button {
+      width: 50px;
+      height: 50px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      transform: none;
+      transition: background 0.3s ease, border-color 0.3s ease, opacity 0.35s ease;
+    }
+
+    .play-button svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .play-button .icon-play {
+      margin-left: 3px;
+    }
+
+    /* Reset desktop styles for mobile */
+    .phone {
+      padding: 0;
+      margin: 0;
+      will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      /* Only transition transform and position, not filter */
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  left 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  right 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* V-shape: Both phones visible, overlapping closer and bigger */
+    /* Telegram on left (in front), Discord on right (behind) */
+    /* Transform order matches desktop: scale, translateX, rotate */
+    /* Using !important to override desktop styles */
+    .phone-showcase[data-active="none"] .phone-telegram {
+      z-index: 2;
+      left: 22% !important;
+      right: auto !important;
+      transform: scale(1.5) rotate(-8deg) !important;
+      filter: brightness(0.9) !important;
+    }
+
+    .phone-showcase[data-active="none"] .phone-discord {
+      z-index: 1;
+      left: 51% !important;
+      right: auto !important;
+      transform: scale(1.5) rotate(8deg) !important;
+      filter: brightness(0.9) !important;
+    }
+
+    /* No glow on V-shape state */
+    .phone-showcase[data-active="none"] .phone-telegram .phone-frame,
+    .phone-showcase[data-active="none"] .phone-discord .phone-frame {
+      box-shadow:
+        0 30px 60px -15px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    /* Disable hover effects on mobile - keep V-shape on hover */
+    .phone-showcase[data-active="none"] .phone-telegram:hover {
+      z-index: 2;
+      left: 22% !important;
+      right: auto !important;
+      transform: scale(1.5) rotate(-8deg) !important;
+      filter: brightness(0.9) !important;
+    }
+
+    .phone-showcase[data-active="none"] .phone-discord:hover {
+      z-index: 1;
+      left: 51% !important;
+      right: auto !important;
+      transform: scale(1.5) rotate(8deg) !important;
+      filter: brightness(0.9) !important;
+    }
+
+    /* Prevent fade-out on hover for mobile */
+    .phone-showcase[data-active="none"]:has(.phone-telegram:hover) .phone-discord {
+      z-index: 1;
+      left: 51% !important;
+      right: auto !important;
+      transform: scale(1.5) rotate(8deg) !important;
+      filter: brightness(0.9) !important;
+      opacity: 1;
+    }
+
+    .phone-showcase[data-active="none"]:has(.phone-discord:hover) .phone-telegram {
+      z-index: 2;
+      left: 22% !important;
+      right: auto !important;
+      transform: scale(1.5) rotate(-8deg) !important;
+      filter: brightness(0.9) !important;
+      opacity: 1;
+    }
+
+    /* Disable hover glow on mobile */
+    .phone-showcase[data-active="none"] .phone-telegram:hover .phone-frame,
+    .phone-showcase[data-active="none"] .phone-discord:hover .phone-frame {
+      box-shadow:
+        0 30px 60px -15px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    /* Telegram active - centered, bigger than V-shape */
+    .phone-showcase[data-active="telegram"] .phone-telegram {
+      z-index: 2;
+      left: calc(50% - 50px) !important;
+      right: auto !important;
+      transform: scale(1.45) rotate(0deg) !important;
+      filter: brightness(1) !important;
+    }
+
+    /* Remove desktop glow on mobile */
+    .phone-showcase[data-active="telegram"] .phone-telegram .phone-frame,
+    .phone-showcase[data-active="telegram"] .phone-telegram:hover .phone-frame {
+      box-shadow:
+        0 30px 60px -15px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .phone-showcase[data-active="telegram"] .phone-discord {
+      z-index: 1;
+      left: 75% !important;
+      right: auto !important;
+      transform: scale(0.75) rotate(6deg) !important;
+      filter: brightness(0.55) !important;
+    }
+
+    /* Discord active - centered, bigger than V-shape */
+    .phone-showcase[data-active="discord"] .phone-discord {
+      z-index: 2;
+      left: calc(50% - 50px) !important;
+      right: auto !important;
+      transform: scale(1.45) rotate(0deg) !important;
+      filter: brightness(1) !important;
+    }
+
+    /* Remove desktop glow on mobile */
+    .phone-showcase[data-active="discord"] .phone-discord .phone-frame,
+    .phone-showcase[data-active="discord"] .phone-discord:hover .phone-frame {
+      box-shadow:
+        0 30px 60px -15px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .phone-showcase[data-active="discord"] .phone-telegram {
+      z-index: 1;
+      left: -10% !important;
+      right: auto !important;
+      transform: scale(0.75) rotate(-6deg) !important;
+      filter: brightness(0.55) !important;
+    }
+
+    /* Allow fullscreen phones to overflow container and receive clicks */
+    .phone-showcase[data-active="discord-full"],
+    .phone-showcase[data-active="telegram-full"] {
+      overflow: visible;
+    }
+
+    /* Smooth transitions for fullscreen on mobile */
+    .phone-showcase[data-active="discord-full"] .phone,
+    .phone-showcase[data-active="telegram-full"] .phone,
+    .phone-showcase[data-active="discord-closing"] .phone,
+    .phone-showcase[data-active="telegram-closing"] .phone {
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                  left 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+                  right 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    /* Disable child element transitions during fullscreen to prevent vibration */
+    .phone-showcase[data-active="discord-full"] .phone-frame,
+    .phone-showcase[data-active="discord-full"] .phone-screen,
+    .phone-showcase[data-active="discord-full"] .phone-notch,
+    .phone-showcase[data-active="telegram-full"] .phone-frame,
+    .phone-showcase[data-active="telegram-full"] .phone-screen,
+    .phone-showcase[data-active="telegram-full"] .phone-notch,
+    .phone-showcase[data-active="discord-closing"] .phone-frame,
+    .phone-showcase[data-active="discord-closing"] .phone-screen,
+    .phone-showcase[data-active="discord-closing"] .phone-notch,
+    .phone-showcase[data-active="telegram-closing"] .phone-frame,
+    .phone-showcase[data-active="telegram-closing"] .phone-screen,
+    .phone-showcase[data-active="telegram-closing"] .phone-notch {
+      transition: none !important;
+    }
+
+    /* Telegram closing - go directly to V-shape */
+    .phone-showcase[data-active="telegram-closing"] .phone-telegram {
+      z-index: 2;
+      left: 22% !important;
+      right: auto !important;
+      transform: scale(1.5) rotate(-8deg) !important;
+      filter: brightness(1) !important;
+    }
+
+    .phone-showcase[data-active="telegram-closing"] .phone-telegram .phone-frame {
+      box-shadow:
+        0 30px 60px -15px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .phone-showcase[data-active="telegram-closing"] .phone-discord {
+      z-index: 1;
+      left: 51% !important;
+      right: auto !important;
+      transform: scale(1.5) rotate(8deg) !important;
+      filter: brightness(1) !important;
+    }
+
+    /* Discord closing - go directly to V-shape */
+    .phone-showcase[data-active="discord-closing"] .phone-discord {
+      z-index: 1;
+      left: 51% !important;
+      right: auto !important;
+      transform: scale(1.5) rotate(8deg) !important;
+      filter: brightness(1) !important;
+    }
+
+    .phone-showcase[data-active="discord-closing"] .phone-discord .phone-frame {
+      box-shadow:
+        0 30px 60px -15px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .phone-showcase[data-active="discord-closing"] .phone-telegram {
+      z-index: 2;
+      left: 22% !important;
+      right: auto !important;
+      transform: scale(1.5) rotate(-8deg) !important;
+      filter: brightness(1) !important;
+    }
+
+    /* Mobile: Telegram fullscreen - much bigger but keeps phone frame */
+    .phone-showcase[data-active="telegram-full"] .phone-telegram {
+      z-index: 10;
+      left: calc(50% - 50px) !important;
+      right: auto !important;
+      transform: scale(3.1) rotate(0deg) !important;
+      filter: brightness(1) !important;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .phone-showcase[data-active="telegram-full"] .phone-telegram .phone-frame {
+      box-shadow:
+        0 30px 60px -15px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .phone-showcase[data-active="telegram-full"] .phone-telegram .phone-label {
+      opacity: 0;
+    }
+
+    .phone-showcase[data-active="telegram-full"] .phone-discord {
+      display: none;
+    }
+
+    /* Mobile: Discord fullscreen - much bigger but keeps phone frame */
+    .phone-showcase[data-active="discord-full"] .phone-discord {
+      z-index: 10;
+      left: calc(50% - 50px) !important;
+      right: auto !important;
+      transform: scale(3.1) rotate(0deg) !important;
+      filter: brightness(1) !important;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .phone-showcase[data-active="discord-full"] .phone-discord .phone-frame {
+      box-shadow:
+        0 30px 60px -15px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .phone-showcase[data-active="discord-full"] .phone-discord .phone-label {
+      opacity: 0;
+    }
+
+    .phone-showcase[data-active="discord-full"] .phone-telegram {
+      display: none;
+    }
+
+    /* Mobile fullscreen: button hidden by default, shown on tap (controlled by JS touch-idle class) */
+    .phone-showcase[data-active="telegram-full"] .phone-telegram .play-button:not(.touch-idle):not(.just-clicked),
+    .phone-showcase[data-active="discord-full"] .phone-discord .play-button:not(.touch-idle):not(.just-clicked) {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    .phone-showcase[data-active="telegram-full"] .phone-telegram .play-button .icon-play,
+    .phone-showcase[data-active="discord-full"] .phone-discord .play-button .icon-play {
+      display: none;
+    }
+
+    .phone-showcase[data-active="telegram-full"] .phone-telegram .play-button .icon-close,
+    .phone-showcase[data-active="discord-full"] .phone-discord .play-button .icon-close {
+      display: block;
+    }
+
+    /* Mobile: keep showing play icon (not X) during just-clicked fade */
+    .play-button.just-clicked .icon-play {
+      display: block !important;
+    }
+
+    .play-button.just-clicked .icon-close {
+      display: none !important;
+    }
+  }
+</style>

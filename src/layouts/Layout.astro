@@ -1,0 +1,256 @@
+---
+import Stars from '../components/Stars.astro';
+import ComingSoonModal from '../components/ComingSoonModal.astro';
+
+type Props = {
+	title?: string;
+	description?: string;
+	image?: string;
+	url?: string;
+};
+
+const {
+	title = 'GetCookie — Employee Recognition Bot for Discord',
+	description = 'Give Cookies to recognize teammates. Earn crypto rewards. Build a culture of appreciation on Discord.',
+	image = '/og.png',
+	url,
+} = Astro.props as Props;
+
+const site =
+	Astro.site ??
+	(import.meta.env.PUBLIC_SITE_URL ? new URL(import.meta.env.PUBLIC_SITE_URL) : undefined);
+const canonical = url ? new URL(url, site ?? Astro.url).toString() : (site ?? Astro.url).toString();
+const ogImage = new URL(image, site ?? Astro.url).toString();
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="preconnect" href="https://platform.twitter.com" crossorigin />
+		<link rel="dns-prefetch" href="https://platform.twitter.com" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+
+		<meta name="theme-color" content="#fffef8" id="theme-color" />
+		<meta name="color-scheme" content="light dark" />
+		<meta name="robots" content="index,follow" />
+		<script is:inline>
+			(function() {
+				const stored = localStorage.getItem('theme');
+				const theme = stored === 'light' || stored === 'dark' ? stored : 'light';
+				document.documentElement.setAttribute('data-theme', theme);
+				document.getElementById('theme-color')?.setAttribute('content', theme === 'dark' ? '#0a1220' : '#fffef8');
+			})();
+		</script>
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="GetCookie" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={title} />
+		<meta property="og:locale" content="en_US" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@GetCookieHQ" />
+		<meta name="twitter:creator" content="@GetCookieHQ" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,800&display=swap" rel="stylesheet" />
+
+		<link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+		<link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+		<link rel="manifest" href="/site.webmanifest" />
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@graph": [
+				{
+					"@type": "Organization",
+					"@id": `${site ?? 'https://getcookie.org'}#organization`,
+					"name": "GetCookie",
+					"url": site?.toString() ?? 'https://getcookie.org',
+					"logo": {
+						"@type": "ImageObject",
+						"url": new URL('/logo.png', site ?? Astro.url).toString(),
+						"width": 128,
+						"height": 85
+					},
+					"sameAs": [
+						"https://twitter.com/GetCookieHQ"
+					],
+					"description": "Employee recognition bot for Discord. Give Cookies to teammates, earn crypto rewards, and build a culture of appreciation."
+				},
+				{
+					"@type": "WebSite",
+					"@id": `${site ?? 'https://getcookie.org'}#website`,
+					"url": site?.toString() ?? 'https://getcookie.org',
+					"name": "GetCookie",
+					"publisher": {
+						"@id": `${site ?? 'https://getcookie.org'}#organization`
+					},
+					"inLanguage": "en-US"
+				},
+				{
+					"@type": "WebPage",
+					"@id": `${canonical}#webpage`,
+					"url": canonical,
+					"name": title,
+					"description": description,
+					"isPartOf": {
+						"@id": `${site ?? 'https://getcookie.org'}#website`
+					},
+					"about": {
+						"@id": `${site ?? 'https://getcookie.org'}#organization`
+					},
+					"inLanguage": "en-US"
+				},
+				...(Astro.url.pathname.endsWith('/faq/') ? [{
+					"@type": "FAQPage",
+					"@id": `${canonical}#faqpage`,
+					"mainEntity": [
+						{
+							"@type": "Question",
+							"name": "What is GetCookie?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "GetCookie is an employee recognition bot for Discord. It allows team members to give Cookies (crypto tokens) to recognize each other's great work, view leaderboards, and redeem rewards."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "What are Cookies?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "Cookies are crypto tokens that represent recognition. When someone gives you a Cookie, you receive a real crypto token that can be redeemed for rewards or held as a token of appreciation."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "How do I give Cookies?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "Use simple slash commands in Discord. Tag a teammate, add an optional message about why you're recognizing them, and send Cookies. It takes just a few seconds."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "Can I redeem Cookies?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "Yes! Cookies are real crypto tokens. You can redeem them for rewards, transfer them, or hold them. Your Cookies, your choice."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "Is GetCookie free?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "GetCookie offers a free tier for small teams. Larger organizations can contact us for enterprise pricing with additional features like analytics dashboards and custom values."
+							}
+						},
+						{
+							"@type": "Question",
+							"name": "Why Discord?",
+							"acceptedAnswer": {
+								"@type": "Answer",
+								"text": "Discord is where teams collaborate. By integrating recognition into Discord, appreciation happens naturally in the flow of work without requiring another app or context switch."
+							}
+						}
+					]
+				}] : []),
+				...(Astro.url.pathname.startsWith('/docs/') ? [{
+					"@type": "BreadcrumbList",
+					"@id": `${canonical}#breadcrumb`,
+					"itemListElement": [
+						{
+							"@type": "ListItem",
+							"position": 1,
+							"name": "Home",
+							"item": site?.toString() ?? 'https://getcookie.org'
+						},
+						...Astro.url.pathname.split('/').filter(Boolean).map((segment, index, arr) => ({
+							"@type": "ListItem",
+							"position": index + 2,
+							"name": segment.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+							"item": new URL('/' + arr.slice(0, index + 1).join('/') + '/', site ?? Astro.url).toString()
+						}))
+					]
+				}] : [])
+			]
+		})} />
+	</head>
+	<body>
+		<Stars />
+		<slot />
+		<ComingSoonModal />
+	</body>
+</html>
+
+<style is:global>
+	:root,
+	[data-theme="light"] {
+		--bg: #fffaf0;
+		--bg-secondary: #fff2e0;
+		--bg-hero: linear-gradient(180deg, #fff3d4 0%, #fff6e0 50%, #fff8e7 100%);
+		--text: #1a1a1a;
+		--muted: #4a4a4a;
+		--border: #f0ead8;
+		--blue: #d4a012;
+		--hover-bg: rgba(212, 160, 18, 0.06);
+		--shadow: 0 10px 30px rgba(100, 80, 20, 0.08);
+		--card-bg: #ffffff;
+		--card-border: rgba(212, 160, 18, 0.15);
+		--accent: #d4a012;
+	}
+
+	[data-theme="dark"] {
+		--bg: #030810;
+		--bg-secondary: #030810;
+		--bg-hero: linear-gradient(180deg, #030810 0%, #030810 100%);
+		--text: #ffffff;
+		--muted: #cccccc;
+		--border: #1e3a52;
+		--blue: #1d9bf0;
+		--hover-bg: rgba(29, 155, 240, 0.12);
+		--shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+		--card-bg: rgba(10, 18, 32, 0.9);
+		--card-border: rgba(29, 155, 240, 0.2);
+		--accent: #5865F2;
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		overflow-x: hidden;
+	}
+
+	body {
+		background: var(--bg);
+		color: var(--text);
+		font-family:
+			-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+		transition: background 0.2s ease, color 0.2s ease;
+		position: relative;
+	}
+
+</style>

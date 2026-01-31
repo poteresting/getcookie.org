@@ -1,0 +1,40 @@
+---
+// DataTable wraps markdown tables with styling
+---
+
+<div class="data-table-wrapper">
+	<slot />
+</div>
+
+<style>
+	.data-table-wrapper :global(table) {
+		width: 100%;
+		border-collapse: collapse;
+		margin: 16px 0;
+		font-size: 14px;
+	}
+
+	.data-table-wrapper :global(th),
+	.data-table-wrapper :global(td) {
+		border: 1px solid var(--border);
+		padding: 10px 12px;
+		text-align: left;
+	}
+
+	.data-table-wrapper :global(th) {
+		background: var(--bg-secondary);
+		font-weight: 600;
+		font-size: 13px;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		color: var(--muted);
+	}
+
+	.data-table-wrapper :global(td) {
+		background: var(--card-bg);
+	}
+
+	.data-table-wrapper :global(tr:hover td) {
+		background: var(--hover-bg);
+	}
+</style>

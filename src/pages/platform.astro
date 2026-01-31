@@ -1,0 +1,341 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import { LINKS } from '../lib/constants';
+---
+
+<Layout title="Select Platform — GetCookie" description="Add GetCookie to your Discord server in seconds. Free to try, no credit card required.">
+	<div class="platform-page">
+		<div class="platform-header">
+			<ThemeToggle />
+		</div>
+		<div class="platform-card">
+			<div class="platform-content">
+				<div class="platform-left">
+					<a href="/" class="platform-logo">
+						<img src="/logo.png" alt="GetCookie" width="40" height="40" />
+						<span>GetCookie</span>
+					</a>
+
+					<h1>Ready to Boost <span class="highlight">Engagement</span>?</h1>
+					<p class="platform-subtitle">Join communities building <strong>meaningful connections</strong>.</p>
+
+					<a href={LINKS.DISCORD_BOT} class="platform-btn discord-btn">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+						</svg>
+						Add to Discord
+					</a>
+
+					<p class="platform-note">Free to try. No credit card required. Fast setup.</p>
+				</div>
+
+			</div>
+		</div>
+
+		<footer class="footer">
+			<div class="footer-inner">
+				<div class="footer-grid">
+					<div class="footer-col">
+						<h4>About</h4>
+						<a href="/docs/introduction/">Introduction</a>
+						<a href="/docs/getting-started/setup/">Getting Started</a>
+					</div>
+					<div class="footer-col">
+						<h4>Resources</h4>
+						<a href="/docs/introduction/">Documentation</a>
+						<a href="/docs/getting-started/need-help/">Help</a>
+						<a href="/docs/getting-started/faq/">FAQ</a>
+					</div>
+					<div class="footer-col">
+						<h4>Legal</h4>
+						<a href="/docs/legal/privacy-policy/">Privacy Policy</a>
+						<a href="/docs/legal/terms-of-service/">Terms of Service</a>
+					</div>
+					<div class="footer-col footer-brand">
+						<a class="footer-logo" href="/" aria-label="GetCookie home">
+							<img src="/logo.png" width="128" height="85" alt="GetCookie" />
+							<span class="footer-brandName">GetCookie</span>
+						</a>
+						<div class="footer-socials">
+							<a class="footer-discord" href={LINKS.DISCORD_SUPPORT} target="_blank" rel="noreferrer" aria-label="Discord">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+								</svg>
+							</a>
+							<a href={LINKS.TWITTER} target="_blank" rel="noreferrer" aria-label="X (Twitter)">
+								<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+								</svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+</Layout>
+
+<style>
+	.platform-page {
+		min-height: 100vh;
+		background: var(--bg-secondary);
+		display: flex;
+		flex-direction: column;
+	}
+
+	.platform-header {
+		display: flex;
+		justify-content: flex-end;
+		padding: 20px 40px;
+		max-width: 1200px;
+		margin: 0 auto;
+		width: 100%;
+	}
+
+	.platform-card {
+		flex: 1;
+		display: flex;
+		align-items: flex-start;
+		justify-content: center;
+		padding: 40px 24px 80px;
+	}
+
+	.platform-content {
+		background: var(--bg);
+		border-radius: 24px;
+		padding: 60px;
+		max-width: 700px;
+		width: 100%;
+		box-shadow: var(--shadow);
+		text-align: center;
+	}
+
+	.platform-logo {
+		display: inline-flex;
+		align-items: center;
+		gap: 12px;
+		text-decoration: none;
+		color: var(--text);
+		margin-bottom: 40px;
+	}
+
+	.platform-logo img {
+		border-radius: 8px;
+	}
+
+	.platform-logo span {
+		font-family: 'Nunito', sans-serif;
+		font-size: 24px;
+		font-weight: 800;
+		font-style: italic;
+	}
+
+	.platform-left h1 {
+		font-size: 42px;
+		font-weight: 800;
+		line-height: 1.1;
+		color: var(--text);
+		margin: 0 0 16px;
+		white-space: nowrap;
+	}
+
+	.platform-left h1 .highlight {
+		color: #b5742d;
+	}
+
+	.platform-subtitle {
+		font-size: 18px;
+		color: var(--muted);
+		margin: 0 0 32px;
+	}
+
+	.platform-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 12px;
+		padding: 16px 32px;
+		border-radius: 12px;
+		font-size: 18px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		width: 100%;
+		max-width: 300px;
+	}
+
+	.discord-btn {
+		background: #5865F2;
+		color: white;
+	}
+
+	.discord-btn:hover {
+		background: #4752c4;
+		transform: translateY(-2px);
+	}
+
+	.platform-note {
+		font-size: 14px;
+		color: var(--muted);
+		margin: 16px 0 0;
+	}
+
+	.platform-right {
+		display: flex;
+		align-items: center;
+	}
+
+	.companies-box {
+		border: 2px solid var(--border);
+		border-radius: 16px;
+		padding: 32px;
+		width: 100%;
+	}
+
+	.companies-box h3 {
+		font-size: 18px;
+		font-weight: 700;
+		color: var(--text);
+		text-align: center;
+		margin: 0 0 24px;
+	}
+
+	.companies-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+	}
+
+	.company-placeholder {
+		background: var(--bg-secondary);
+		border-radius: 8px;
+		padding: 16px;
+		text-align: center;
+		font-size: 12px;
+		color: var(--muted);
+	}
+
+	.footer {
+		padding: 60px 24px;
+		background: var(--bg);
+		width: 100vw;
+		margin-left: calc(-50vw + 50%);
+	}
+
+	.footer-inner {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 40px;
+	}
+
+	.footer-col {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.footer-col h4 {
+		margin: 0 0 8px;
+		font-size: 14px;
+		font-weight: 700;
+		color: #b5742d;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+	}
+
+	.footer-col a {
+		color: var(--muted);
+		text-decoration: none;
+		font-size: 14px;
+		transition: color 0.15s ease;
+	}
+
+	.footer-col a:hover {
+		color: var(--text);
+	}
+
+	.footer-brand {
+		align-items: flex-end;
+		text-align: right;
+	}
+
+	.footer-logo {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		text-decoration: none;
+		color: var(--text);
+	}
+
+	.footer-logo img {
+		height: 36px;
+		width: auto;
+		border-radius: 8px;
+	}
+
+	.footer-brandName {
+		font-family: 'Nunito', sans-serif;
+		font-size: 18px;
+		font-weight: 800;
+		font-style: italic;
+		color: var(--text);
+	}
+
+	.footer-socials {
+		display: flex;
+		gap: 16px;
+		margin-top: 16px;
+	}
+
+	.footer-socials a {
+		color: var(--muted);
+		transition: color 0.15s ease;
+	}
+
+	.footer-socials a:hover {
+		color: #b5742d;
+	}
+
+	.footer-socials .footer-discord {
+		color: #5865F2;
+	}
+
+	.footer-socials .footer-discord:hover {
+		color: #4752c4;
+	}
+
+	@media (max-width: 800px) {
+		.platform-content {
+			grid-template-columns: 1fr;
+			padding: 40px 24px;
+		}
+
+		.platform-left h1 {
+			font-size: 32px;
+		}
+
+		.platform-right {
+			display: none;
+		}
+
+		.footer-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.footer-brand {
+			grid-column: span 2;
+			align-items: center;
+			text-align: center;
+		}
+
+		.footer-socials {
+			justify-content: center;
+		}
+	}
+</style>

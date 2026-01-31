@@ -1,0 +1,153 @@
+---
+---
+
+<div id="coming-soon-modal" class="modal-overlay" aria-hidden="true">
+	<div class="modal-content" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+		<button class="modal-close" aria-label="Close modal">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+				<path d="M18 6L6 18M6 6l12 12"/>
+			</svg>
+		</button>
+		<div class="modal-icon">
+			<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+				<circle cx="12" cy="12" r="10"/>
+				<path d="M12 6v6l4 2"/>
+			</svg>
+		</div>
+		<h2 id="modal-title">Coming Soon</h2>
+		<p>We're working hard to bring GetCookie to your team. Stay tuned for launch!</p>
+	</div>
+</div>
+
+<script is:inline>
+	let scrollY = 0;
+
+	window.openComingSoonModal = function() {
+		const modal = document.getElementById('coming-soon-modal');
+		if (modal) {
+			// Store scroll position and lock body
+			scrollY = window.scrollY;
+			document.body.style.position = 'fixed';
+			document.body.style.top = `-${scrollY}px`;
+			document.body.style.left = '0';
+			document.body.style.right = '0';
+			modal.classList.add('active');
+			modal.setAttribute('aria-hidden', 'false');
+		}
+	};
+
+	function closeComingSoonModal() {
+		const modal = document.getElementById('coming-soon-modal');
+		if (modal) {
+			modal.classList.remove('active');
+			modal.setAttribute('aria-hidden', 'true');
+			// Restore scroll position
+			document.body.style.position = '';
+			document.body.style.top = '';
+			document.body.style.left = '';
+			document.body.style.right = '';
+			window.scrollTo(0, scrollY);
+		}
+	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const modal = document.getElementById('coming-soon-modal');
+		if (!modal) return;
+
+		const closeBtn = modal.querySelector('.modal-close');
+		const content = modal.querySelector('.modal-content');
+
+		closeBtn?.addEventListener('click', closeComingSoonModal);
+
+		modal.addEventListener('click', (e) => {
+			if (e.target === modal) {
+				closeComingSoonModal();
+			}
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && modal.classList.contains('active')) {
+				closeComingSoonModal();
+			}
+		});
+	});
+</script>
+
+<style>
+	.modal-overlay {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.6);
+		backdrop-filter: blur(4px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 9999;
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.2s ease, visibility 0.2s ease;
+	}
+
+	.modal-overlay.active {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.modal-content {
+		background: var(--card-bg, #ffffff);
+		border: 1px solid var(--border, #c9daea);
+		border-radius: 20px;
+		padding: 40px 48px;
+		max-width: 400px;
+		width: 90%;
+		text-align: center;
+		position: relative;
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+		transform: scale(0.95);
+		transition: transform 0.2s ease;
+	}
+
+	.modal-overlay.active .modal-content {
+		transform: scale(1);
+	}
+
+	.modal-close {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		background: none;
+		border: none;
+		color: var(--muted, #4a6785);
+		cursor: pointer;
+		padding: 8px;
+		border-radius: 8px;
+		transition: all 0.15s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.modal-close:hover {
+		background: var(--hover-bg, rgba(29, 155, 240, 0.08));
+		color: var(--text, #0f1419);
+	}
+
+	.modal-icon {
+		color: var(--accent, #5865F2);
+		margin-bottom: 20px;
+	}
+
+	.modal-content h2 {
+		margin: 0 0 12px;
+		font-size: 28px;
+		font-weight: 800;
+		color: var(--text, #0f1419);
+	}
+
+	.modal-content p {
+		margin: 0;
+		font-size: 16px;
+		line-height: 1.6;
+		color: var(--muted, #4a6785);
+	}
+</style>

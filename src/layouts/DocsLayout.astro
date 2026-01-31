@@ -1,0 +1,484 @@
+---
+import Layout from './Layout.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+
+type Props = {
+	title: string;
+	description?: string;
+};
+
+type NavLink = { title: string; href: string };
+type NavSection = { title: string; items: NavLink[] };
+type NavItem = NavLink | NavSection;
+
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navigation: NavItem[] = [
+	{
+		title: 'Introduction',
+		href: '/docs/introduction/',
+	},
+	{
+		title: 'Getting Started',
+		items: [
+			{ title: 'Setup', href: '/docs/getting-started/setup/' },
+			{ title: 'FAQ', href: '/docs/getting-started/faq/' },
+			{ title: 'Need help?', href: '/docs/getting-started/need-help/' },
+		],
+	},
+	{
+		title: 'Legal',
+		items: [
+			{ title: 'Terms of Service', href: '/docs/legal/terms-of-service/' },
+			{ title: 'Privacy Policy', href: '/docs/legal/privacy-policy/' },
+		],
+	},
+];
+
+function isActive(href: string) {
+	return currentPath === href || currentPath === href.slice(0, -1);
+}
+
+function isSection(item: NavItem): item is NavSection {
+	return 'items' in item;
+}
+---
+
+<Layout title={`${title} — GetCookie Docs`} description={description} url={currentPath}>
+	<div class="docs-page">
+		<header class="docs-nav">
+			<a class="brand" href="/" aria-label="GetCookie home">
+				<img class="brandLogo" src="/logo.png" width="128" height="85" alt="GetCookie" />
+				<span class="brandName">GetCookie</span>
+			</a>
+			<nav class="navLinks" aria-label="Primary">
+				<a class="navLink" href="/">Home</a>
+				<ThemeToggle />
+			</nav>
+		</header>
+
+		<div class="docs-container">
+			<aside class="docs-sidebar">
+				<nav class="sidebar-nav">
+					{navigation.map((section) => (
+						isSection(section) ? (
+							<div class="nav-section">
+								<h3 class="nav-heading">{section.title}</h3>
+								<ul class="nav-list">
+									{section.items.map((item) => (
+										<li>
+											<a href={item.href} class:list={['nav-link', { active: isActive(item.href) }]}>
+												{item.title}
+											</a>
+										</li>
+									))}
+								</ul>
+							</div>
+						) : (
+							<a href={section.href} class:list={['nav-link top-level', { active: isActive(section.href) }]}>
+								{section.title}
+							</a>
+						)
+					))}
+				</nav>
+			</aside>
+
+			<main class="docs-content">
+				<article class="docs-article">
+					<slot />
+				</article>
+			</main>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.docs-page {
+		--sidebar-width: 260px;
+		min-height: calc(100vh + 1px);
+		background: var(--bg);
+	}
+
+	.docs-nav {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 18px 24px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 12px;
+		text-decoration: none;
+		color: var(--text);
+	}
+
+	.brandLogo {
+		height: 30px;
+		width: auto;
+		display: block;
+		border-radius: 8px;
+	}
+
+	.brandName {
+		font-family: 'Nunito', sans-serif;
+		font-size: 24px;
+		font-weight: 800;
+		font-style: italic;
+		color: var(--text);
+	}
+
+	.navLinks {
+		display: inline-flex;
+		gap: 10px;
+		align-items: center;
+	}
+
+	.navLink {
+		color: var(--muted);
+		text-decoration: none;
+		padding: 8px 10px;
+		border-radius: 999px;
+		font-size: 14px;
+	}
+
+	.navLink:hover,
+	.navLink.active {
+		background: var(--hover-bg);
+		color: var(--text);
+	}
+
+	.docs-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: var(--sidebar-width) 1fr;
+		min-height: calc(100vh - 80px);
+	}
+
+	.docs-sidebar {
+		border-right: 1px solid var(--border);
+		padding: 24px;
+		position: sticky;
+		top: 0;
+		height: calc(100vh - 80px);
+		overflow-y: auto;
+	}
+
+	.sidebar-nav {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.nav-section {
+		margin-top: 16px;
+	}
+
+	.nav-section:first-child {
+		margin-top: 0;
+	}
+
+	.nav-heading {
+		font-size: 12px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--muted);
+		margin: 0 0 8px 0;
+		padding: 0 12px;
+	}
+
+	.nav-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.nav-link {
+		display: block;
+		padding: 8px 12px;
+		color: var(--muted);
+		text-decoration: none;
+		font-size: 14px;
+		border-radius: 8px;
+		transition: all 0.15s ease;
+	}
+
+	.nav-link:hover {
+		color: var(--text);
+		background: var(--hover-bg);
+	}
+
+	.nav-link.active {
+		color: #b5742d;
+		background: rgba(181, 116, 45, 0.1);
+		font-weight: 600;
+	}
+
+	.nav-link.top-level {
+		font-weight: 600;
+		color: var(--text);
+	}
+
+	.docs-content {
+		padding: 32px 48px;
+		max-width: 800px;
+	}
+
+	.docs-article {
+		line-height: 1.7;
+	}
+
+	.docs-article :global(h1) {
+		font-size: 32px;
+		font-weight: 800;
+		letter-spacing: -0.02em;
+		margin: 0 0 8px 0;
+		line-height: 1.2;
+	}
+
+	.docs-article :global(.lead) {
+		font-size: 18px;
+		color: var(--muted);
+		margin: 0 0 32px 0;
+	}
+
+	.docs-article :global(h2) {
+		font-size: 22px;
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		margin: 40px 0 16px 0;
+		padding-top: 24px;
+		border-top: 1px solid var(--border);
+	}
+
+	.docs-article :global(h2:first-of-type) {
+		border-top: none;
+		padding-top: 0;
+	}
+
+	.docs-article :global(h3) {
+		font-size: 18px;
+		font-weight: 600;
+		margin: 32px 0 12px 0;
+	}
+
+	.docs-article :global(p) {
+		margin: 0 0 16px 0;
+		color: var(--text);
+	}
+
+	.docs-article :global(ul),
+	.docs-article :global(ol) {
+		margin: 0 0 16px 0;
+		padding-left: 24px;
+	}
+
+	.docs-article :global(li) {
+		margin: 8px 0;
+	}
+
+	.docs-article :global(a) {
+		color: #b5742d;
+		text-decoration: none;
+	}
+
+	.docs-article :global(a:hover) {
+		text-decoration: underline;
+	}
+
+	.docs-article :global(code) {
+		background: var(--bg-secondary);
+		padding: 2px 6px;
+		border-radius: 4px;
+		font-size: 0.9em;
+		font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+	}
+
+	.docs-article :global(.resource-list) {
+		list-style: none;
+		padding: 0;
+		margin: 24px 0;
+	}
+
+	.docs-article :global(.resource-list li) {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 12px 16px;
+		background: var(--bg-secondary);
+		border-radius: 12px;
+		margin: 8px 0;
+	}
+
+	.docs-article :global(.resource-list a),
+	.docs-article :global(.resource-list .resource-btn) {
+		font-weight: 600;
+		color: #b5742d;
+		text-decoration: none;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+		font-size: inherit;
+		font-family: inherit;
+	}
+
+	.docs-article :global(.resource-list .resource-btn:hover) {
+		text-decoration: underline;
+	}
+
+	.docs-article :global(.callout) {
+		background: rgba(181, 116, 45, 0.08);
+		border-left: 4px solid #b5742d;
+		padding: 16px 20px;
+		border-radius: 0 12px 12px 0;
+		margin: 24px 0;
+	}
+
+	.docs-article :global(.callout p) {
+		margin: 0;
+	}
+
+	.docs-article :global(.step) {
+		display: flex;
+		gap: 16px;
+		margin: 24px 0;
+		padding: 20px;
+		background: var(--bg-secondary);
+		border-radius: 12px;
+	}
+
+	.docs-article :global(.step-number) {
+		flex-shrink: 0;
+		width: 32px;
+		height: 32px;
+		background: #b5742d;
+		color: white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: 700;
+		font-size: 14px;
+	}
+
+	.docs-article :global(.step-content h3) {
+		margin: 0 0 8px 0;
+		font-size: 16px;
+	}
+
+	.docs-article :global(.step-content p) {
+		margin: 0;
+		color: var(--muted);
+		font-size: 14px;
+	}
+
+	.docs-article :global(.faq-item) {
+		border-bottom: 1px solid var(--border);
+		padding: 24px 0;
+	}
+
+	.docs-article :global(.faq-item:last-child) {
+		border-bottom: none;
+	}
+
+	.docs-article :global(.faq-question) {
+		font-weight: 700;
+		font-size: 16px;
+		margin: 0 0 12px 0;
+		color: var(--text);
+	}
+
+	.docs-article :global(.faq-answer) {
+		color: var(--muted);
+		margin: 0;
+	}
+
+	.docs-article :global(.accordion) {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin: 16px 0;
+	}
+
+	.docs-article :global(.accordion-item) {
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		overflow: hidden;
+	}
+
+	.docs-article :global(.accordion-item summary) {
+		padding: 16px 20px;
+		font-weight: 600;
+		font-size: 15px;
+		cursor: pointer;
+		list-style: none;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background: var(--bg-secondary);
+		transition: background 0.15s ease;
+	}
+
+	.docs-article :global(.accordion-item summary::-webkit-details-marker) {
+		display: none;
+	}
+
+	.docs-article :global(.accordion-item summary::after) {
+		content: '+';
+		font-size: 20px;
+		font-weight: 400;
+		color: var(--muted);
+		transition: transform 0.2s ease;
+	}
+
+	.docs-article :global(.accordion-item[open] summary::after) {
+		content: '−';
+	}
+
+	.docs-article :global(.accordion-item summary:hover) {
+		background: var(--hover-bg);
+	}
+
+	.docs-article :global(.accordion-content) {
+		padding: 16px 20px;
+		border-top: 1px solid var(--border);
+	}
+
+	.docs-article :global(.accordion-content p) {
+		margin: 0 0 12px 0;
+		color: var(--muted);
+	}
+
+	.docs-article :global(.accordion-content ul) {
+		margin: 0;
+		padding-left: 20px;
+	}
+
+	.docs-article :global(.accordion-content li) {
+		margin: 6px 0;
+		color: var(--text);
+	}
+
+	@media (max-width: 900px) {
+		.docs-container {
+			grid-template-columns: 1fr;
+		}
+
+		.docs-sidebar {
+			display: none;
+		}
+
+		.docs-content {
+			padding: 24px;
+		}
+	}
+</style>

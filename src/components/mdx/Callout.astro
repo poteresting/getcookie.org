@@ -1,0 +1,69 @@
+---
+interface Props {
+	type?: 'warning' | 'info';
+	title: string;
+}
+
+const { type = 'warning', title } = Astro.props;
+---
+
+<div class:list={['callout', type]}>
+	<p>
+		<strong>
+			<svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" class="callout-icon">
+				<path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/>
+			</svg>
+			<span class="callout-title">{title}</span>
+		</strong>
+	</p>
+	<slot />
+</div>
+
+<style>
+	.callout {
+		padding: 16px;
+		border-radius: 8px;
+		margin: 16px 0;
+		border-left: 4px solid;
+	}
+
+	.callout.warning,
+	.callout.info {
+		background: rgba(59, 130, 246, 0.12);
+		border-left-color: #3b82f6;
+	}
+
+	.callout p:first-child {
+		margin-bottom: 12px;
+	}
+
+	.callout.warning p:first-child,
+	.callout.info p:first-child {
+		color: #4d3800;
+	}
+
+	:global([data-theme="dark"]) .callout.warning p:first-child,
+	:global([data-theme="dark"]) .callout.info p:first-child {
+		color: #fbbf24;
+	}
+
+	.callout.warning :global(p),
+	.callout.info :global(p) {
+		color: #4d3800;
+	}
+
+	:global([data-theme="dark"]) .callout.warning :global(p),
+	:global([data-theme="dark"]) .callout.info :global(p) {
+		color: #e6a702;
+	}
+
+	.callout-icon {
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 6px;
+	}
+
+	.callout-title {
+		font-size: 0.9em;
+	}
+</style>

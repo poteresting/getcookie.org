@@ -1,0 +1,631 @@
+---
+// Globe component using Three.js with realistic Earth textures
+// Features people emojis with recognition popups showing Cookie giving activity
+---
+
+<div id="globe-container" class="globe-container">
+	<canvas id="globe-canvas"></canvas>
+</div>
+
+<style>
+	.globe-container {
+		width: 100%;
+		height: 100%;
+		min-height: 400px;
+		position: relative;
+	}
+
+	#globe-canvas {
+		width: 100%;
+		height: 100%;
+		display: block;
+		opacity: 0;
+		transform: scale(0.8);
+		transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+
+	#globe-canvas.loaded {
+		opacity: 1;
+		transform: scale(1);
+	}
+</style>
+
+<script>
+	import * as THREE from 'three';
+
+	function initGlobe() {
+		const container = document.getElementById('globe-container');
+		const canvas = document.getElementById('globe-canvas') as HTMLCanvasElement;
+
+		if (!container || !canvas) return;
+
+		// Scene setup
+		const scene = new THREE.Scene();
+
+		// Camera
+		const camera = new THREE.PerspectiveCamera(
+			45,
+			container.clientWidth / container.clientHeight,
+			0.1,
+			1000
+		);
+		camera.position.z = 3;
+
+		// Renderer
+		const renderer = new THREE.WebGLRenderer({
+			canvas,
+			antialias: true,
+			alpha: true
+		});
+		renderer.setSize(container.clientWidth, container.clientHeight);
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+		// Globe geometry
+		const globeGeometry = new THREE.SphereGeometry(1, 64, 64);
+
+		// Texture loader
+		const textureLoader = new THREE.TextureLoader();
+
+		// Use realistic Earth textures
+		const dayTextureUrl = 'https://unpkg.com/three-globe@2.31.0/example/img/earth-day.jpg';
+		const nightTextureUrl = 'https://unpkg.com/three-globe@2.31.0/example/img/earth-night.jpg';
+
+		// Create globe with texture
+		const globeMaterial = new THREE.MeshPhongMaterial({
+			shininess: 15,
+			transparent: true,
+			opacity: 0.98,
+		});
+
+		const globe = new THREE.Mesh(globeGeometry, globeMaterial);
+		scene.add(globe);
+
+		// Lighting - create both, adjust intensity based on theme
+		const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+		scene.add(ambientLight);
+
+		const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+		directionalLight.position.set(5, 3, 5);
+		scene.add(directionalLight);
+
+		// Track if initial texture has loaded
+		let initialTextureLoaded = false;
+
+		// Function to update globe based on theme
+		function updateTheme(isDark: boolean) {
+			const textureUrl = isDark ? nightTextureUrl : dayTextureUrl;
+
+			textureLoader.load(
+				textureUrl,
+				(texture) => {
+					// Dispose old texture if exists
+					if (globeMaterial.map) {
+						globeMaterial.map.dispose();
+					}
+					globeMaterial.map = texture;
+					globeMaterial.shininess = isDark ? 5 : 15;
+					globeMaterial.needsUpdate = true;
+
+					// Show the globe once texture is loaded
+					if (!initialTextureLoaded) {
+						initialTextureLoaded = true;
+						canvas.classList.add('loaded');
+					}
+				},
+				undefined,
+				(error) => {
+					console.error('Error loading Earth texture:', error);
+					globeMaterial.color = new THREE.Color(isDark ? 0x0a1525 : 0x4a90d9);
+					// Still show globe on error with fallback color
+					if (!initialTextureLoaded) {
+						initialTextureLoaded = true;
+						canvas.classList.add('loaded');
+					}
+				}
+			);
+
+			// Adjust lighting for theme
+			if (isDark) {
+				ambientLight.intensity = 0.8;
+				directionalLight.intensity = 0;
+			} else {
+				ambientLight.intensity = 0.4;
+				directionalLight.intensity = 1.0;
+			}
+		}
+
+		// Initial theme setup
+		const initialIsDark = document.documentElement.getAttribute('data-theme') === 'dark';
+		updateTheme(initialIsDark);
+
+		// Watch for theme changes
+		const themeObserver = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				if (mutation.attributeName === 'data-theme') {
+					const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+					updateTheme(isDark);
+				}
+			});
+		});
+
+		themeObserver.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ['data-theme']
+		});
+
+		// Atmosphere glow effect
+		const atmosphereGeometry = new THREE.SphereGeometry(1.05, 64, 64);
+		const atmosphereMaterial = new THREE.ShaderMaterial({
+			vertexShader: `
+				varying vec3 vNormal;
+				void main() {
+					vNormal = normalize(normalMatrix * normal);
+					gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+				}
+			`,
+			fragmentShader: `
+				varying vec3 vNormal;
+				void main() {
+					float intensity = pow(0.7 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
+					gl_FragColor = vec4(0.3, 0.6, 1.0, 1.0) * intensity;
+				}
+			`,
+			blending: THREE.AdditiveBlending,
+			side: THREE.BackSide,
+			transparent: true,
+		});
+		const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+		scene.add(atmosphere);
+
+		// Helper function to create emoji sprite texture
+		function createEmojiTexture(emoji: string, size: number = 64): THREE.CanvasTexture {
+			const canvas = document.createElement('canvas');
+			canvas.width = size;
+			canvas.height = size;
+			const ctx = canvas.getContext('2d')!;
+			ctx.font = `${size * 0.8}px Arial`;
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'middle';
+			ctx.fillText(emoji, size / 2, size / 2);
+			const texture = new THREE.CanvasTexture(canvas);
+			texture.needsUpdate = true;
+			return texture;
+		}
+
+		// Helper function to create popup bubble texture
+		function createPopupTexture(text: string, bgColor: string, textColor: string = '#fff', isLarge: boolean = false, customWidth?: number): THREE.CanvasTexture {
+			const canvas = document.createElement('canvas');
+			const width = customWidth ?? (isLarge ? 200 : 100);
+			const height = isLarge ? 100 : 60;
+			canvas.width = width;
+			canvas.height = height;
+			const ctx = canvas.getContext('2d')!;
+
+			// Draw rounded rectangle bubble
+			const radius = 12;
+			const bubbleHeight = height - 20;
+			ctx.beginPath();
+			ctx.moveTo(radius, 0);
+			ctx.lineTo(width - radius, 0);
+			ctx.quadraticCurveTo(width, 0, width, radius);
+			ctx.lineTo(width, bubbleHeight - radius);
+			ctx.quadraticCurveTo(width, bubbleHeight, width - radius, bubbleHeight);
+			// Pointer
+			ctx.lineTo(width / 2 + 10, bubbleHeight);
+			ctx.lineTo(width / 2, height);
+			ctx.lineTo(width / 2 - 10, bubbleHeight);
+			ctx.lineTo(radius, bubbleHeight);
+			ctx.quadraticCurveTo(0, bubbleHeight, 0, bubbleHeight - radius);
+			ctx.lineTo(0, radius);
+			ctx.quadraticCurveTo(0, 0, radius, 0);
+			ctx.closePath();
+
+			ctx.fillStyle = bgColor;
+			ctx.fill();
+
+			// Draw text
+			ctx.fillStyle = textColor;
+			ctx.font = `bold ${isLarge ? 32 : 24}px Arial`;
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'middle';
+			ctx.fillText(text, width / 2, bubbleHeight / 2);
+
+			const texture = new THREE.CanvasTexture(canvas);
+			texture.needsUpdate = true;
+			return texture;
+		}
+
+		// Helper function to create sprite with proper aspect ratio
+		function createSprite(texture: THREE.Texture, scale: number = 0.15, aspectRatio: number = 1, brightness: number = 1): THREE.Sprite {
+			const material = new THREE.SpriteMaterial({
+				map: texture,
+				transparent: true,
+				depthTest: false,
+				color: new THREE.Color(brightness, brightness, brightness)
+			});
+			const sprite = new THREE.Sprite(material);
+			sprite.scale.set(scale * aspectRatio, scale, 1);
+			return sprite;
+		}
+
+		function latLngToVector3(lat: number, lng: number, radius: number) {
+			const phi = (90 - lat) * (Math.PI / 180);
+			const theta = (lng + 180) * (Math.PI / 180);
+			return new THREE.Vector3(
+				-radius * Math.sin(phi) * Math.cos(theta),
+				radius * Math.cos(phi),
+				radius * Math.sin(phi) * Math.sin(theta)
+			);
+		}
+
+		// People positions with responses (Y = yes/checkmark, N = no/cross)
+		const peoplePositions = [
+			{ lat: 40.7128, lng: -74.0060, response: 'N', isMain: false },    // New York
+			{ lat: 51.5074, lng: -0.1278, response: 'Y', isMain: false },     // London
+			{ lat: 35.6762, lng: 139.6503, response: 'Y', isMain: false },    // Tokyo
+			{ lat: 40.4168, lng: -3.7038, response: 'Y', isMain: false },     // Madrid
+			{ lat: 37.7749, lng: -122.4194, response: 'Y', isMain: false },   // San Francisco
+			{ lat: 41.9028, lng: 12.4964, response: 'N', isMain: false },     // Rome
+			{ lat: 39.9042, lng: 116.4074, response: 'Y', isMain: false },    // Beijing
+			{ lat: 1.3521, lng: 103.8198, response: 'Y', isMain: false },     // Singapore
+			{ lat: 25.2048, lng: 55.2708, response: 'Y', isMain: false },     // Dubai
+			{ lat: 22.3193, lng: 114.1694, response: 'N', isMain: false },    // Hong Kong
+			{ lat: 56.9496, lng: 24.1052, response: 'Y', isMain: false },     // Riga
+			{ lat: 31.9686, lng: -99.9018, response: 'Y', isMain: false },   // Texas
+			{ lat: 19.4326, lng: -99.1332, response: 'Y', isMain: false },    // Mexico City
+			{ lat: 41.8781, lng: -87.6298, response: 'Y', isMain: false },    // Chicago
+			// South America
+			{ lat: -23.5505, lng: -46.6333, response: 'Y', isMain: false },   // São Paulo
+			{ lat: -34.6037, lng: -58.3816, response: 'N', isMain: false },   // Buenos Aires
+			{ lat: -12.0464, lng: -77.0428, response: 'Y', isMain: false },   // Lima
+			// Australia
+			{ lat: -33.8688, lng: 151.2093, response: 'Y', isMain: false },   // Sydney
+			{ lat: -37.8136, lng: 144.9631, response: 'N', isMain: false },   // Melbourne
+			// Africa
+			{ lat: 6.5244, lng: 3.3792, response: 'Y', isMain: false },       // Lagos
+			{ lat: -26.2041, lng: 28.0473, response: 'Y', isMain: false },    // Johannesburg
+		];
+
+		// People emoji variations
+		const peopleEmojis = ['🧔‍♂️', '👩', '👴', '👨', '🧑', '👱‍♀️', '👨‍🦱', '👨‍🦲', '👨', '🧔', '👨‍🦳', '👩‍🦱', '🧑‍🦰', '👴', '👵', '🧓', '👨‍🦰'];
+
+		// Create textures
+		const cookie1Texture = createPopupTexture('+1 🍪', '#1e40af');
+		const cookie2Texture = createPopupTexture('+2 🍪', '#1e40af');
+		const cookie3Texture = createPopupTexture('+3 🍪', '#1e40af');
+		const cookie5Texture = createPopupTexture('+5 🍪', '#1e40af');
+		const cookie7Texture = createPopupTexture('+7 🍪', '#1e40af');
+		const crossTexture = createPopupTexture('Thanks! ❤️', '#9d174d', '#fff', true);
+		const buyTexture = createPopupTexture('Great job! ⭐', '#9d174d', '#fff', true);
+		const welcomeTexture = createPopupTexture('Welcome! 🙏', '#9d174d', '#fff', true);
+		const cookieTextTexture = createPopupTexture('Cookie! 🍪', '#9d174d', '#fff', true);
+		const mvpTexture = createPopupTexture('MVP! 🏆', '#9d174d', '#fff', true);
+
+		// Array of cookie textures for variety
+		const cookieTextures = [cookie1Texture, cookie2Texture, cookie3Texture, cookie5Texture, cookie7Texture];
+
+		// Store sprites for animation
+		const spriteGroups: THREE.Group[] = [];
+
+		// Aspect ratios for different popup types
+		const regularAspect = 1.67;  // Regular popups (100x60)
+		const largeAspect = 2.0;    // Large popups (200x100)
+
+		// Store popup sprites for popup animation
+		const popupAnimations: { sprite: THREE.Sprite; targetScale: number; aspectRatio: number; delay: number; startTime: number }[] = [];
+		const animationStartTime = Date.now();
+
+		peoplePositions.forEach((pos, index) => {
+			const group = new THREE.Group();
+
+			// Random person emoji with varied sizes
+			const emoji = peopleEmojis[index % peopleEmojis.length];
+			const emojiTexture = createEmojiTexture(emoji, 64);
+
+			// Vary emoji sizes - bigger for main/BUY? locations, random variation for others
+			let emojiScale = 0.12;
+			if (pos.isMain || index === 7 || index === 12) {
+				emojiScale = 0.15; // Bigger for BUY? locations
+			} else if (index === 19) {
+				emojiScale = 0.14; // GetCookie location
+			} else {
+				// Random variation for others
+				const sizeVariants = [0.09, 0.10, 0.11, 0.12, 0.13];
+				emojiScale = sizeVariants[index % sizeVariants.length];
+			}
+
+			const personSprite = createSprite(emojiTexture, emojiScale, 1, 1);
+			// Apply warm yellow tint to emoji
+			(personSprite.material as THREE.SpriteMaterial).color.setRGB(1, 0.9, 0.45);
+			personSprite.position.set(0, 0, 0);
+			group.add(personSprite);
+
+			// Response popup above the person
+			let popupTexture: THREE.CanvasTexture;
+			let popupScale: number;
+			let aspectRatio: number;
+
+			if (pos.isMain) {
+				popupTexture = buyTexture;
+				popupScale = 0.18;
+				aspectRatio = largeAspect;
+			} else if (index === 1) {
+				// London gets Cookie!
+				popupTexture = cookieTextTexture;
+				popupScale = 0.15;
+				aspectRatio = largeAspect;
+			} else if (index === 5) {
+				// Rome gets MVP!
+				popupTexture = mvpTexture;
+				popupScale = 0.15;
+				aspectRatio = largeAspect;
+			} else if (index === 7) {
+				// Singapore gets Welcome!
+				popupTexture = welcomeTexture;
+				popupScale = 0.15;
+				aspectRatio = largeAspect;
+			} else if (index === 12) {
+				// Mexico City gets Great job!
+				popupTexture = buyTexture;
+				popupScale = 0.15;
+				aspectRatio = largeAspect;
+			} else if (index === 19) {
+				// Lagos gets +7 cookie
+				popupTexture = cookie7Texture;
+				popupScale = 0.13;
+				aspectRatio = regularAspect;
+			} else if (index === 20) {
+				// Johannesburg gets "Cookie!"
+				popupTexture = cookieTextTexture;
+				popupScale = 0.15;
+				aspectRatio = largeAspect;
+			} else if (index === 4) {
+				// San Francisco gets "Cookie!"
+				popupTexture = cookieTextTexture;
+				popupScale = 0.15;
+				aspectRatio = largeAspect;
+			} else if (pos.response === 'Y') {
+				// Vary cookie amounts based on index
+				popupTexture = cookieTextures[index % cookieTextures.length];
+				popupScale = 0.12;
+				aspectRatio = regularAspect;
+			} else {
+				popupTexture = crossTexture;
+				popupScale = 0.15;
+				aspectRatio = largeAspect;
+			}
+
+			const popupSprite = createSprite(popupTexture, 0.001, aspectRatio); // Start tiny for animation
+			const popupY = pos.isMain ? 0.14 : (index === 7 || index === 12 || index === 19) ? 0.12 : 0.1;
+			popupSprite.position.set(0, popupY, 0);
+			group.add(popupSprite);
+
+			// Store popup for animation with staggered delay
+			popupAnimations.push({
+				sprite: popupSprite,
+				targetScale: popupScale,
+				aspectRatio: aspectRatio,
+				delay: index * 150 + Math.random() * 100, // Stagger by 150ms + random
+				startTime: animationStartTime
+			});
+
+			// Position the group on the globe
+			const position = latLngToVector3(pos.lat, pos.lng, 1.08);
+			group.position.copy(position);
+
+			// Make sprites face outward from globe center
+			group.lookAt(0, 0, 0);
+			group.rotateY(Math.PI);
+
+			globe.add(group);
+			spriteGroups.push(group);
+		});
+
+		// Add connecting lines between some people
+		const lineMaterial = new THREE.LineBasicMaterial({
+			color: 0x7c8aff,
+			transparent: true,
+			opacity: 0.8
+		});
+
+		// Connect some nearby people with curved lines
+		const connections = [
+			[0, 4],   // NY to SF
+			[1, 3],   // London to Madrid
+			[4, 11],  // SF to LA
+			[7, 9],   // Singapore to HK
+			[2, 9],   // Tokyo to HK
+			[14, 15], // São Paulo to Buenos Aires
+			[16, 14], // Lima to São Paulo
+			[17, 18], // Sydney to Melbourne
+			[7, 17],  // Singapore to Sydney
+			[19, 20], // Lagos to Johannesburg
+			[12, 11], // Mexico City to LA
+			[0, 13],  // NY to Chicago
+		];
+
+		connections.forEach(([fromIdx, toIdx]) => {
+			const from = peoplePositions[fromIdx];
+			const to = peoplePositions[toIdx];
+
+			const fromPos = latLngToVector3(from.lat, from.lng, 1.06);
+			const toPos = latLngToVector3(to.lat, to.lng, 1.06);
+
+			// Create curved line using QuadraticBezierCurve3
+			const midPoint = new THREE.Vector3()
+				.addVectors(fromPos, toPos)
+				.multiplyScalar(0.5)
+				.normalize()
+				.multiplyScalar(1.15);
+
+			const curve = new THREE.QuadraticBezierCurve3(fromPos, midPoint, toPos);
+			const points = curve.getPoints(20);
+			const geometry = new THREE.BufferGeometry().setFromPoints(points);
+			const line = new THREE.Line(geometry, lineMaterial);
+			globe.add(line);
+		});
+
+		// Mouse interaction
+		let isDragging = false;
+		let previousMousePosition = { x: 0, y: 0 };
+		let autoRotate = true;
+		let targetRotationX = 0.5;
+		let targetRotationY = 0;
+
+		canvas.addEventListener('mousedown', (e) => {
+			isDragging = true;
+			autoRotate = false;
+			previousMousePosition = { x: e.clientX, y: e.clientY };
+		});
+
+		canvas.addEventListener('mousemove', (e) => {
+			if (!isDragging) return;
+
+			const deltaX = e.clientX - previousMousePosition.x;
+			const deltaY = e.clientY - previousMousePosition.y;
+
+			targetRotationY += deltaX * 0.005;
+			targetRotationX += deltaY * 0.005;
+
+			previousMousePosition = { x: e.clientX, y: e.clientY };
+		});
+
+		canvas.addEventListener('mouseup', () => {
+			isDragging = false;
+			setTimeout(() => { autoRotate = true; }, 3000);
+		});
+
+		canvas.addEventListener('mouseleave', () => {
+			isDragging = false;
+		});
+
+		// Touch support
+		canvas.addEventListener('touchstart', (e) => {
+			isDragging = true;
+			autoRotate = false;
+			previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+		});
+
+		canvas.addEventListener('touchmove', (e) => {
+			if (!isDragging) return;
+
+			const deltaX = e.touches[0].clientX - previousMousePosition.x;
+			const deltaY = e.touches[0].clientY - previousMousePosition.y;
+
+			targetRotationY += deltaX * 0.005;
+			targetRotationX += deltaY * 0.005;
+
+			previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+		});
+
+		canvas.addEventListener('touchend', () => {
+			isDragging = false;
+			setTimeout(() => { autoRotate = true; }, 3000);
+		});
+
+		// Easing function with bounce
+		function easeOutBack(t: number): number {
+			const c1 = 1.70158;
+			const c3 = c1 + 1;
+			return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+		}
+
+		// Easing function for fade out
+		function easeInBack(t: number): number {
+			const c1 = 1.70158;
+			const c3 = c1 + 1;
+			return c3 * t * t * t - c1 * t * t;
+		}
+
+		// Animation loop
+		function animate() {
+			requestAnimationFrame(animate);
+
+			const now = Date.now();
+
+			if (autoRotate) {
+				targetRotationY += 0.002;
+			}
+
+			// Smooth rotation
+			globe.rotation.y += (targetRotationY - globe.rotation.y) * 0.1;
+			globe.rotation.x += (targetRotationX - globe.rotation.x) * 0.1;
+
+			// Animate popup sprites with looping
+			const popInDuration = 400;   // Pop in animation
+			const visibleDuration = 3000; // Stay visible
+			const popOutDuration = 300;   // Pop out animation
+			const hiddenDuration = 1500;  // Stay hidden before restart
+			const cycleDuration = popInDuration + visibleDuration + popOutDuration + hiddenDuration;
+
+			popupAnimations.forEach(anim => {
+				const elapsed = now - anim.startTime - anim.delay;
+
+				if (elapsed < 0) {
+					// Not started yet
+					anim.sprite.scale.set(0.001 * anim.aspectRatio, 0.001, 1);
+					return;
+				}
+
+				// Calculate position in the cycle
+				const cycleTime = elapsed % cycleDuration;
+
+				if (cycleTime < popInDuration) {
+					// Popping in
+					const progress = cycleTime / popInDuration;
+					const easedProgress = easeOutBack(progress);
+					const scale = anim.targetScale * easedProgress;
+					anim.sprite.scale.set(scale * anim.aspectRatio, scale, 1);
+				} else if (cycleTime < popInDuration + visibleDuration) {
+					// Visible
+					anim.sprite.scale.set(anim.targetScale * anim.aspectRatio, anim.targetScale, 1);
+				} else if (cycleTime < popInDuration + visibleDuration + popOutDuration) {
+					// Popping out
+					const progress = (cycleTime - popInDuration - visibleDuration) / popOutDuration;
+					const scale = anim.targetScale * (1 - easeInBack(progress));
+					anim.sprite.scale.set(Math.max(0.001, scale) * anim.aspectRatio, Math.max(0.001, scale), 1);
+				} else {
+					// Hidden
+					anim.sprite.scale.set(0.001 * anim.aspectRatio, 0.001, 1);
+				}
+			});
+
+			// Make sprites always face camera
+			spriteGroups.forEach(group => {
+				group.children.forEach(child => {
+					if (child instanceof THREE.Sprite) {
+						child.material.rotation = 0;
+					}
+				});
+			});
+
+			renderer.render(scene, camera);
+		}
+
+		animate();
+
+		// Handle resize
+		function handleResize() {
+			if (!container) return;
+
+			camera.aspect = container.clientWidth / container.clientHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize(container.clientWidth, container.clientHeight);
+		}
+
+		window.addEventListener('resize', handleResize);
+
+		// Cleanup
+		return () => {
+			window.removeEventListener('resize', handleResize);
+			themeObserver.disconnect();
+			renderer.dispose();
+		};
+	}
+
+	// Initialize on load
+	initGlobe();
+
+	// Re-initialize on Astro page transitions
+	document.addEventListener('astro:after-swap', initGlobe);
+</script>
