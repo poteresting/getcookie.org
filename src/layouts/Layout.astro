@@ -10,8 +10,8 @@ type Props = {
 };
 
 const {
-	title = 'Community Building Platform for Discord | GetCookie',
-	description = 'Give Cookies to recognize teammates. Earn crypto rewards. Build a culture of appreciation on Discord.',
+	title = 'Best People Program on Slack and Microsoft Teams | Cookie',
+	description = 'Give Cookies to recognize teammates. Earn crypto rewards. Build a culture of appreciation on Slack and Microsoft Teams.',
 	image = '/og.png',
 	url,
 } = Astro.props as Props;
@@ -47,7 +47,7 @@ const ogImage = new URL(image, site ?? Astro.url).toString();
 		</script>
 
 		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="GetCookie" />
+		<meta property="og:site_name" content="Cookie" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
@@ -80,7 +80,7 @@ const ogImage = new URL(image, site ?? Astro.url).toString();
 				{
 					"@type": "Organization",
 					"@id": `${site ?? 'https://getcookie.org'}#organization`,
-					"name": "GetCookie",
+					"name": "Cookie",
 					"url": site?.toString() ?? 'https://getcookie.org',
 					"logo": {
 						"@type": "ImageObject",
@@ -91,13 +91,13 @@ const ogImage = new URL(image, site ?? Astro.url).toString();
 					"sameAs": [
 						"https://twitter.com/GetCookieHQ"
 					],
-					"description": "Community building platform for Discord. Give Cookies to teammates, earn crypto rewards, and build a culture of appreciation."
+					"description": "The people program for growing teams on Slack and Microsoft Teams. Give Cookies to teammates, earn crypto rewards, and build a culture of appreciation."
 				},
 				{
 					"@type": "WebSite",
 					"@id": `${site ?? 'https://getcookie.org'}#website`,
 					"url": site?.toString() ?? 'https://getcookie.org',
-					"name": "GetCookie",
+					"name": "Cookie",
 					"publisher": {
 						"@id": `${site ?? 'https://getcookie.org'}#organization`
 					},
@@ -123,10 +123,10 @@ const ogImage = new URL(image, site ?? Astro.url).toString();
 					"mainEntity": [
 						{
 							"@type": "Question",
-							"name": "What is GetCookie?",
+							"name": "What is Cookie?",
 							"acceptedAnswer": {
 								"@type": "Answer",
-								"text": "GetCookie is a community building platform for Discord. It allows team members to give Cookies (crypto tokens) to recognize each other's great work, view leaderboards, and redeem rewards."
+								"text": "Cookie is the people program for growing teams on Slack and Microsoft Teams. It allows team members to give Cookies (crypto tokens) to recognize each other's great work, view leaderboards, and redeem rewards."
 							}
 						},
 						{
@@ -142,7 +142,7 @@ const ogImage = new URL(image, site ?? Astro.url).toString();
 							"name": "How do I give Cookies?",
 							"acceptedAnswer": {
 								"@type": "Answer",
-								"text": "Use simple slash commands in Discord. Tag a teammate, add an optional message about why you're recognizing them, and send Cookies. It takes just a few seconds."
+								"text": "Use simple slash commands in Slack or Teams. Tag a teammate, add an optional message about why you're recognizing them, and send Cookies. It takes just a few seconds."
 							}
 						},
 						{
@@ -155,18 +155,18 @@ const ogImage = new URL(image, site ?? Astro.url).toString();
 						},
 						{
 							"@type": "Question",
-							"name": "Is GetCookie free?",
+							"name": "Is Cookie free?",
 							"acceptedAnswer": {
 								"@type": "Answer",
-								"text": "GetCookie offers a free tier for small teams. Larger organizations can contact us for enterprise pricing with additional features like analytics dashboards and custom values."
+								"text": "Cookie offers a free tier for small teams. Larger organizations can contact us for enterprise pricing with additional features like analytics dashboards and custom values."
 							}
 						},
 						{
 							"@type": "Question",
-							"name": "Why Discord?",
+							"name": "Why Slack and Microsoft Teams?",
 							"acceptedAnswer": {
 								"@type": "Answer",
-								"text": "Discord is where teams collaborate. By integrating recognition into Discord, appreciation happens naturally in the flow of work without requiring another app or context switch."
+								"text": "Slack and Microsoft Teams are where teams collaborate. By integrating recognition into your existing workspace, appreciation happens naturally in the flow of work without requiring another app or context switch."
 							}
 						}
 					]

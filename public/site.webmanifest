@@ -1,6 +1,6 @@
 {
-  "name": "GetCookie",
-  "short_name": "GetCookie",
+  "name": "Cookie",
+  "short_name": "Cookie",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

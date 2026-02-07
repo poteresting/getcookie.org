@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-GetCookie marketing website - a landing page and documentation site for a Discord bot that enables community building with crypto token rewards (Cookies).
+Cookie marketing website - a landing page and documentation site for a Discord bot that enables community building with crypto token rewards (Cookies).
 
 ## Commands
 

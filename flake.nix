@@ -1,5 +1,5 @@
 {
-  description = "Node.js (npm) dev shell for getcookie.org";
+  description = "Node.js (npm) dev shell for Cookie website";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
