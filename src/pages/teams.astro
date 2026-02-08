@@ -22,7 +22,7 @@ import { LINKS } from '../lib/constants';
 					<div class="coming-soon-badge">Coming Soon</div>
 
 					<h1>Cookie for <span class="highlight">Microsoft Teams</span></h1>
-					<p class="platform-subtitle">Be the first to know when Cookie launches on Teams. <br /><strong>Join the waitlist</strong> and we'll notify you.</p>
+					<p class="platform-subtitle">Be the first to know when Cookie launches on Teams.<br class="desktop-only"/> <strong>Join the waitlist</strong></p>
 
 					<form class="waitlist-form" id="waitlist-form">
 						<div class="form-group">
@@ -163,6 +163,10 @@ import { LINKS } from '../lib/constants';
 </script>
 
 <style>
+	.mobile-only {
+		display: none;
+	}
+
 	.platform-page {
 		min-height: 100vh;
 		background: var(--bg-secondary);
@@ -482,12 +486,20 @@ import { LINKS } from '../lib/constants';
 
 
 	@media (max-width: 800px) {
+		.desktop-only {
+			display: none;
+		}
+
+		.mobile-only {
+			display: block;
+		}
+
 		.platform-content {
 			padding: 40px 24px;
 		}
 
 		.platform-left h1 {
-			font-size: 28px;
+			font-size: 22px;
 		}
 
 		.platform-subtitle {

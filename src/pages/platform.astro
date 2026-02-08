@@ -17,8 +17,8 @@ import { LINKS } from '../lib/constants';
 						<span>Cookie</span>
 					</a>
 
-					<h1>Ready to <span class="highlight">Connect</span> Everyone?</h1>
-					<p class="platform-subtitle">Build stronger teams with <strong>meaningful connections</strong>.</p>
+					<h1>Ready to <span class="highlight">Connect</span><span class="desktop-only"> Everyone</span>?</h1>
+					<p class="platform-subtitle">Build stronger teams with <strong>meaningful connections</strong></p>
 
 					<div class="platform-buttons">
 						<a href={LINKS.SLACK_APP} class="platform-btn slack-btn">
@@ -161,7 +161,7 @@ import { LINKS } from '../lib/constants';
 		gap: 12px;
 		padding: 16px 32px;
 		border-radius: 12px;
-		font-size: 18px;
+		font-size: 16px;
 		font-weight: 600;
 		text-decoration: none;
 		transition: all 0.2s ease;
@@ -325,6 +325,10 @@ import { LINKS } from '../lib/constants';
 
 
 	@media (max-width: 800px) {
+		.desktop-only {
+			display: none;
+		}
+
 		.platform-content {
 			grid-template-columns: 1fr;
 			padding: 40px 24px;
@@ -341,8 +345,8 @@ import { LINKS } from '../lib/constants';
 
 		.platform-btn {
 			padding: 12px 24px;
-			font-size: 16px;
-			max-width: 240px;
+			font-size: 15px;
+			max-width: 260px;
 		}
 
 		.platform-note {
