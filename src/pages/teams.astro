@@ -2,17 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import { LINKS } from '../lib/constants';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout title="Microsoft Teams — Coming Soon — Cookie" description="Cookie for Microsoft Teams is coming soon. Join the waitlist to be the first to know when it launches.">
 	<div class="platform-page">
 		<header class="platform-nav">
-			<a class="brand" href="/" aria-label="Cookie home">
-				<img class="brandLogo" src="/logo.png" width="128" height="85" alt="Cookie" />
+			<a class="brand" href={`${base}/`} aria-label="Cookie home">
+				<img class="brandLogo" src={`${base}/logo.png`} width="128" height="85" alt="Cookie" />
 				<span class="brandName">Cookie</span>
 			</a>
 			<nav class="navLinks" aria-label="Primary">
-				<a class="navLink" href="/">Home</a>
+				<a class="navLink" href={`${base}/`}>Home</a>
 				<ThemeToggle />
 			</nav>
 		</header>
@@ -77,23 +78,23 @@ import { LINKS } from '../lib/constants';
 				<div class="footer-grid">
 					<div class="footer-col">
 						<h4>About</h4>
-						<a href="/docs/introduction/">Introduction</a>
-						<a href="/docs/getting-started/setup/">Getting Started</a>
+						<a href={`${base}/docs/introduction/`}>Introduction</a>
+						<a href={`${base}/docs/getting-started/setup/`}>Getting Started</a>
 					</div>
 					<div class="footer-col">
 						<h4>Resources</h4>
-						<a href="/docs/introduction/">Documentation</a>
-						<a href="/docs/getting-started/need-help/">Help</a>
-						<a href="/docs/getting-started/faq/">FAQ</a>
+						<a href={`${base}/docs/introduction/`}>Documentation</a>
+						<a href={`${base}/docs/getting-started/need-help/`}>Help</a>
+						<a href={`${base}/docs/getting-started/faq/`}>FAQ</a>
 					</div>
 					<div class="footer-col">
 						<h4>Legal</h4>
-						<a href="/docs/legal/privacy-policy/">Privacy Policy</a>
-						<a href="/docs/legal/terms-of-service/">Terms of Service</a>
+						<a href={`${base}/docs/legal/privacy-policy/`}>Privacy Policy</a>
+						<a href={`${base}/docs/legal/terms-of-service/`}>Terms of Service</a>
 					</div>
 					<div class="footer-col footer-brand">
-						<a class="footer-logo" href="/" aria-label="Cookie home">
-							<img src="/logo.png" width="128" height="85" alt="Cookie" />
+						<a class="footer-logo" href={`${base}/`} aria-label="Cookie home">
+							<img src={`${base}/logo.png`} width="128" height="85" alt="Cookie" />
 							<span class="footer-brandName">Cookie</span>
 						</a>
 						<div class="footer-socials">

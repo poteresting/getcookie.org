@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <DocsLayout
@@ -38,7 +39,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 	<div class="callout">
 		<p>
 			<strong>💡 Need help?</strong> If you run into any issues during setup, check out our
-			<a href="/docs/getting-started/need-help/">help page</a> for troubleshooting tips.
+			<a href={`${base}/docs/getting-started/need-help/`}>help page</a> for troubleshooting tips.
 		</p>
 	</div>
 </DocsLayout>

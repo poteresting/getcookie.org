@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
 import Globe from '../components/Globe.astro';
 import { LINKS } from '../lib/constants';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout
@@ -12,8 +13,8 @@ import { LINKS } from '../lib/constants';
 >
 	<div class="page">
 		<header class="nav">
-			<a class="brand" href="/" aria-label="Cookie home">
-				<img class="brandLogo" src="/logo.png" width="128" height="85" alt="Cookie" />
+			<a class="brand" href={`${base}/`} aria-label="Cookie home">
+				<img class="brandLogo" src={`${base}/logo.png`} width="128" height="85" alt="Cookie" />
 				<span class="brandName">Cookie</span>
 			</a>
 			<div class="mobile-header-right">
@@ -27,8 +28,8 @@ import { LINKS } from '../lib/constants';
 			<nav class="navLinks" id="nav-links" aria-label="Primary">
 				<a class="navLink" href="#features">Features</a>
 				<a class="navLink" href="#how-it-works">How it works</a>
-				<a class="navLink" href="/docs/introduction/">Resources</a>
-				<a class="navBtn" href="/platform">Start for free</a>
+				<a class="navLink" href={`${base}/docs/introduction/`}>Resources</a>
+				<a class="navBtn" href={`${base}/platform`}>Start for free</a>
 				<span class="desktop-theme-toggle">
 					<ThemeToggle />
 				</span>
@@ -40,7 +41,7 @@ import { LINKS } from '../lib/constants';
 			<section class="hero">
 				<!-- Floating Slack-style messages -->
 				<div class="slack-message floating-left-1">
-					<img class="slack-avatar" src="/avatars/emma.png" alt="" />
+					<img class="slack-avatar" src={`${base}/avatars/emma.png`} alt="" />
 					<div class="slack-content">
 						<div class="slack-header">
 							<span class="slack-username">Emma Johnson</span>
@@ -50,7 +51,7 @@ import { LINKS } from '../lib/constants';
 					</div>
 				</div>
 				<div class="slack-message floating-left-2">
-					<img class="slack-avatar" src="/avatars/kevin.png" alt="" />
+					<img class="slack-avatar" src={`${base}/avatars/kevin.png`} alt="" />
 					<div class="slack-content">
 						<div class="slack-header">
 							<span class="slack-username">Kevin Chen</span>
@@ -60,7 +61,7 @@ import { LINKS } from '../lib/constants';
 					</div>
 				</div>
 				<div class="slack-message floating-right-1">
-					<img class="slack-avatar" src="/avatars/marcus.png" alt="" />
+					<img class="slack-avatar" src={`${base}/avatars/marcus.png`} alt="" />
 					<div class="slack-content">
 						<div class="slack-header">
 							<span class="slack-username">Marcus Williams</span>
@@ -70,7 +71,7 @@ import { LINKS } from '../lib/constants';
 					</div>
 				</div>
 				<div class="slack-message floating-right-2">
-					<img class="slack-avatar" src="/avatars/nicole.png" alt="" />
+					<img class="slack-avatar" src={`${base}/avatars/nicole.png`} alt="" />
 					<div class="slack-content">
 						<div class="slack-header">
 							<span class="slack-username">Nicole Harris</span>
@@ -98,19 +99,19 @@ import { LINKS } from '../lib/constants';
 							Get Started for Free
 						</a>
 						<a class="btn-teams btn-teams-hero" href={LINKS.TEAMS_APP}>
-							<img src="/teams.svg" alt="Microsoft Teams" width="28" height="28" />
+							<img src={`${base}/teams.svg`} alt="Microsoft Teams" width="28" height="28" />
 							Get Started for Free
 						</a>
 					</div>
 
 					<div class="hero-description">
 						<span class="hero-tagline">Start Strong <svg class="tagline-star" width="19" height="19" viewBox="0 0 24 24" fill="#b5742d" style="vertical-align: -2px; margin: 0 2px;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Stay Strong</span>
-						<p>Your team is tired of being force-fed donuts and tacos, but... <br/>🍪 Cookie can help! <br class="br-mobile"/><span class="hero-kickoff">Kick off happier teams now with</span><br class="br-keep"/><span class="hero-platform-inline"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z" fill="#E01E5A"/><path d="M8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z" fill="#36C5F0"/><path d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.27 0a2.528 2.528 0 0 1-2.522 2.521 2.528 2.528 0 0 1-2.521-2.521V2.522A2.528 2.528 0 0 1 15.165 0a2.528 2.528 0 0 1 2.521 2.522v6.312z" fill="#2EB67D"/><path d="M15.165 18.956a2.528 2.528 0 0 1 2.521 2.522A2.528 2.528 0 0 1 15.165 24a2.528 2.528 0 0 1-2.521-2.522v-2.522h2.521zm0-1.27a2.528 2.528 0 0 1-2.521-2.522 2.528 2.528 0 0 1 2.521-2.521h6.313A2.528 2.528 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.521h-6.313z" fill="#ECB22E"/></svg></span> <strong>Slack</strong> and <span class="hero-platform-inline"><img src="/teams.svg" alt="Microsoft Teams" width="20" height="20" /></span> <strong>Microsoft Teams</strong></p>
+						<p>Your team is tired of being force-fed donuts and tacos, but... <br/>🍪 Cookie can help! <br class="br-mobile"/><span class="hero-kickoff">Kick off happier teams now with</span><br class="br-keep"/><span class="hero-platform-inline"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z" fill="#E01E5A"/><path d="M8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z" fill="#36C5F0"/><path d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.27 0a2.528 2.528 0 0 1-2.522 2.521 2.528 2.528 0 0 1-2.521-2.521V2.522A2.528 2.528 0 0 1 15.165 0a2.528 2.528 0 0 1 2.521 2.522v6.312z" fill="#2EB67D"/><path d="M15.165 18.956a2.528 2.528 0 0 1 2.521 2.522A2.528 2.528 0 0 1 15.165 24a2.528 2.528 0 0 1-2.521-2.522v-2.522h2.521zm0-1.27a2.528 2.528 0 0 1-2.521-2.522 2.528 2.528 0 0 1 2.521-2.521h6.313A2.528 2.528 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.521h-6.313z" fill="#ECB22E"/></svg></span> <strong>Slack</strong> and <span class="hero-platform-inline"><img src={`${base}/teams.svg`} alt="Microsoft Teams" width="20" height="20" /></span> <strong>Microsoft Teams</strong></p>
 					</div>
 
 					<!-- Mobile only card -->
 					<div class="mobile-hero-card">
-						<img class="slack-avatar" src="/avatars/marcus.png" alt="" />
+						<img class="slack-avatar" src={`${base}/avatars/marcus.png`} alt="" />
 						<div class="slack-content">
 							<div class="slack-header">
 								<span class="slack-username">Marcus Williams</span>
@@ -135,7 +136,7 @@ import { LINKS } from '../lib/constants';
 								<span class="role-header" style="color: #fbbf24;">🏆 MVP — 1</span>
 								<div class="panel-user bubble-user">
 									<span class="status-dot online"></span>
-									<img class="avatar" src="/avatars/taylor.jpg" alt="" />
+									<img class="avatar" src={`${base}/avatars/taylor.jpg`} alt="" />
 									<div class="user-info">
 										<span class="username" style="color: #fbbf24;">Taylor</span>
 									</div>
@@ -148,7 +149,7 @@ import { LINKS } from '../lib/constants';
 								<span class="role-header" style="color: #22c55e;">🧙 Wizard — 1</span>
 								<div class="panel-user bubble-user">
 									<span class="status-dot online"></span>
-									<img class="avatar" src="/avatars/jake.jpg" alt="" />
+									<img class="avatar" src={`${base}/avatars/jake.jpg`} alt="" />
 									<div class="user-info">
 										<span class="username" style="color: #22c55e;">Jake</span>
 									</div>
@@ -161,7 +162,7 @@ import { LINKS } from '../lib/constants';
 								<span class="role-header" style="color: #f472b6;">🗿 Memester — 1</span>
 								<div class="panel-user bubble-user">
 									<span class="status-dot online"></span>
-									<img class="avatar" src="/avatars/mike.jpg" alt="" />
+									<img class="avatar" src={`${base}/avatars/mike.jpg`} alt="" />
 									<div class="user-info">
 										<span class="username" style="color: #f472b6;">Mike</span>
 									</div>
@@ -202,7 +203,7 @@ import { LINKS } from '../lib/constants';
 								<span class="earned-badge">🍪 +1</span>
 							</div>
 							<div class="gratitude-message">
-								<img class="gratitude-avatar" src="/avatars/jake.jpg" alt="" />
+								<img class="gratitude-avatar" src={`${base}/avatars/jake.jpg`} alt="" />
 								<div class="gratitude-content">
 									<div class="gratitude-header">
 										<span class="gratitude-username" style="color: #22c55e;">Jake</span>
@@ -217,7 +218,7 @@ import { LINKS } from '../lib/constants';
 								</div>
 							</div>
 							<div class="gratitude-message">
-								<img class="gratitude-avatar" src="/avatars/emma.png" alt="" />
+								<img class="gratitude-avatar" src={`${base}/avatars/emma.png`} alt="" />
 								<div class="gratitude-content">
 									<div class="gratitude-header">
 										<span class="gratitude-username" style="color: #f472b6;">Emma</span>
@@ -265,7 +266,7 @@ import { LINKS } from '../lib/constants';
 								</div>
 							</div>
 							<div class="fortune-share">
-								<img class="gratitude-avatar" src="/avatars/mike.jpg" alt="" />
+								<img class="gratitude-avatar" src={`${base}/avatars/mike.jpg`} alt="" />
 								<div class="fortune-share-content">
 									<span class="fortune-share-text"><strong style="color: #fbbf24;">Mike</strong> has sent you a fortune cookie</span>
 									<div class="gratitude-reactions">
@@ -344,7 +345,7 @@ import { LINKS } from '../lib/constants';
 								<div class="discord-ui">
 																		<div class="discord-main">
 										<div class="slack-add-bot">
-											<img src="/logo.png" alt="Cookie" class="bot-logo" />
+											<img src={`${base}/logo.png`} alt="Cookie" class="bot-logo" />
 											<span>Cookie</span>
 											<a class="add-btn" href={LINKS.SLACK_APP} target="_blank" rel="noreferrer">Add to Slack</a>
 										</div>
@@ -400,21 +401,21 @@ import { LINKS } from '../lib/constants';
 											<div class="lb-title">🏆 Leaderboard</div>
 											<div class="lb-row lb-row-bubble">
 												<span class="lb-rank">1.</span>
-												<img src="/avatars/taylor.jpg" class="lb-avatar" alt="" />
+												<img src={`${base}/avatars/taylor.jpg`} class="lb-avatar" alt="" />
 												<span class="lb-name">Taylor<span class="lb-bubble-pop" id="taylor-yay"><span class="chat-bubble">Yay! 🎉</span></span></span>
 												<div class="lb-badges"><span class="lb-badge mvp">🏆 MVP x2</span></div>
 												<span class="cookies">🍪 <span class="cookie-count" data-target="94">1</span></span>
 											</div>
 											<div class="lb-row">
 												<span class="lb-rank">2.</span>
-												<img src="/avatars/jake.jpg" class="lb-avatar" alt="" />
+												<img src={`${base}/avatars/jake.jpg`} class="lb-avatar" alt="" />
 												<span class="lb-name">Jake</span>
 												<div class="lb-badges"><span class="lb-badge mvp">🏆 MVP x1</span><span class="lb-badge wizard">🧙 Wizard x3</span></div>
 												<span class="cookies">🍪 <span class="cookie-count" data-target="72">1</span></span>
 											</div>
 											<div class="lb-row">
 												<span class="lb-rank">3.</span>
-												<img src="/avatars/emma.png" class="lb-avatar" alt="" />
+												<img src={`${base}/avatars/emma.png`} class="lb-avatar" alt="" />
 												<span class="lb-name">Emma</span>
 												<div class="lb-badges"><span class="lb-badge memester">🎭 Memester x1</span></div>
 												<span class="cookies">🍪 <span class="cookie-count" data-target="37">1</span></span>
@@ -521,23 +522,23 @@ import { LINKS } from '../lib/constants';
 				<div class="footer-grid">
 					<div class="footer-col">
 						<h4>About</h4>
-						<a href="/docs/introduction/">Introduction</a>
-						<a href="/docs/getting-started/setup/">Getting Started</a>
+						<a href={`${base}/docs/introduction/`}>Introduction</a>
+						<a href={`${base}/docs/getting-started/setup/`}>Getting Started</a>
 					</div>
 					<div class="footer-col">
 						<h4>Resources</h4>
-						<a href="/docs/introduction/">Documentation</a>
-						<a href="/docs/getting-started/need-help/">Help</a>
-						<a href="/docs/getting-started/faq/">FAQ</a>
+						<a href={`${base}/docs/introduction/`}>Documentation</a>
+						<a href={`${base}/docs/getting-started/need-help/`}>Help</a>
+						<a href={`${base}/docs/getting-started/faq/`}>FAQ</a>
 					</div>
 					<div class="footer-col">
 						<h4>Legal</h4>
-						<a href="/docs/legal/privacy-policy/">Privacy Policy</a>
-						<a href="/docs/legal/terms-of-service/">Terms of Service</a>
+						<a href={`${base}/docs/legal/privacy-policy/`}>Privacy Policy</a>
+						<a href={`${base}/docs/legal/terms-of-service/`}>Terms of Service</a>
 					</div>
 					<div class="footer-col footer-brand">
-						<a class="footer-logo" href="/" aria-label="Cookie home">
-							<img src="/logo.png" width="128" height="85" alt="Cookie" />
+						<a class="footer-logo" href={`${base}/`} aria-label="Cookie home">
+							<img src={`${base}/logo.png`} width="128" height="85" alt="Cookie" />
 							<span class="footer-brandName">Cookie</span>
 						</a>
 						<div class="footer-socials">

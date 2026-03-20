@@ -11,27 +11,28 @@ type NavLink = { title: string; href: string };
 type NavSection = { title: string; items: NavLink[] };
 type NavItem = NavLink | NavSection;
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const { title, description } = Astro.props;
 const currentPath = Astro.url.pathname;
 
 const navigation: NavItem[] = [
 	{
 		title: 'Introduction',
-		href: '/docs/introduction/',
+		href: `${base}/docs/introduction/`,
 	},
 	{
 		title: 'Getting Started',
 		items: [
-			{ title: 'Setup', href: '/docs/getting-started/setup/' },
-			{ title: 'FAQ', href: '/docs/getting-started/faq/' },
-			{ title: 'Need help?', href: '/docs/getting-started/need-help/' },
+			{ title: 'Setup', href: `${base}/docs/getting-started/setup/` },
+			{ title: 'FAQ', href: `${base}/docs/getting-started/faq/` },
+			{ title: 'Need help?', href: `${base}/docs/getting-started/need-help/` },
 		],
 	},
 	{
 		title: 'Legal',
 		items: [
-			{ title: 'Terms of Service', href: '/docs/legal/terms-of-service/' },
-			{ title: 'Privacy Policy', href: '/docs/legal/privacy-policy/' },
+			{ title: 'Terms of Service', href: `${base}/docs/legal/terms-of-service/` },
+			{ title: 'Privacy Policy', href: `${base}/docs/legal/privacy-policy/` },
 		],
 	},
 ];
@@ -48,12 +49,12 @@ function isSection(item: NavItem): item is NavSection {
 <Layout title={`${title} — Cookie Docs`} description={description} url={currentPath}>
 	<div class="docs-page">
 		<header class="docs-nav">
-			<a class="brand" href="/" aria-label="Cookie home">
-				<img class="brandLogo" src="/logo.png" width="128" height="85" alt="Cookie" />
+			<a class="brand" href={`${base}/`} aria-label="Cookie home">
+				<img class="brandLogo" src={`${base}/logo.png`} width="128" height="85" alt="Cookie" />
 				<span class="brandName">Cookie</span>
 			</a>
 			<nav class="navLinks" aria-label="Primary">
-				<a class="navLink" href="/">Home</a>
+				<a class="navLink" href={`${base}/`}>Home</a>
 				<ThemeToggle />
 				<button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
 					<span class="hamburger-line"></span>
@@ -66,7 +67,7 @@ function isSection(item: NavItem): item is NavSection {
 		<div class="docs-container">
 			<aside class="docs-sidebar">
 				<nav class="sidebar-nav">
-					<a href="/" class="nav-link top-level mobile-home">Home</a>
+					<a href={`${base}/`} class="nav-link top-level mobile-home">Home</a>
 					{navigation.map((section) => (
 						isSection(section) ? (
 							<div class="nav-section">

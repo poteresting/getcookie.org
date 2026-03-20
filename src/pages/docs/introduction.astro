@@ -1,13 +1,14 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import { LINKS } from '../../lib/constants';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <DocsLayout
 	title="Introduction"
 	description="Cookie is a community recognition app for Slack and Microsoft Teams. Give Cookies to members, earn crypto rewards, and build a culture of appreciation."
 >
-	<h1><img src="/logo.png" alt="Cookie Logo" style="height: 1.2em; vertical-align: middle; margin-right: 0.5rem;" /> What is Cookie?</h1>
+	<h1><img src={`${base}/logo.png`} alt="Cookie Logo" style="height: 1.2em; vertical-align: middle; margin-right: 0.5rem;" /> What is Cookie?</h1>
 	<p class="lead">
 		Cookie is a community recognition app for Slack and Microsoft Teams that makes appreciation fun and meaningful.
 		Members reward each other with reactions and cookies — a playful way to celebrate contributions, climb the leaderboards, and build a culture of appreciation in your community or organization.
@@ -34,7 +35,7 @@ import { LINKS } from '../../lib/constants';
 			<a href={LINKS.SLACK_APP} target="_blank" rel="noreferrer">Add Cookie to Slack</a>
 		</li>
 		<li>
-			<img src="/teams.svg" alt="Microsoft Teams" width="20" height="20" />
+			<img src={`${base}/teams.svg`} alt="Microsoft Teams" width="20" height="20" />
 			<a href={LINKS.TEAMS_APP} target="_blank" rel="noreferrer">Add Cookie to Microsoft Teams</a>
 		</li>
 		<li>
