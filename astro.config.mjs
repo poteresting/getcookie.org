@@ -5,6 +5,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://getcookie.org',
+	site: 'https://poteresting.github.io',
+	base: '/getcookie.org',
 	integrations: [sitemap(), mdx()],
 });
