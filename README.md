@@ -1,50 +1,42 @@
-# GetCookie.org
+# getcookie.org
 
-Website can be viewed here -> https://poteresting.github.io/getcookie.org/
+Static marketing and docs site built with **Astro** and **Three.js** for **GetCookie** — a Slack / Microsoft Teams app where remote teammates give each other cookies and redeem them for rewards.
 
-# Astro Starter Kit: Basics
+🔗 **Live site:** https://poteresting.github.io/getcookie.org/
 
-```sh
-npm create astro@latest -- --template basics
+**Static-first** (Astro, zero JS by default) · **Interactive 3D globe** (Three.js, live recognition markers) · **SEO** (sitemap, OpenGraph)
+
+## Run
+
+Requires Node 22.
+
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # static output in dist/
+npm run preview  # serve the production build locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Structure
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```
+src/
+  pages/            landing, platform, teams, docs/
+  components/       Three.js earth, Stars background, CSS-animated rocket, dynamic UI mockups
+  layouts/          base + docs layouts with OG/SEO meta
+  content/          MDX content collections (legal pages)
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Deploy
 
-## 🧞 Commands
+Pushes to `main` build and deploy to GitHub Pages automatically via GitHub Actions
+(`.github/workflows/deploy.yml`). The site is served from the `/getcookie.org/` subpath,
+so asset and link paths use Astro's `BASE_URL`.
 
-All commands are run from the root of the project, from a terminal:
+## Notes
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Theme (light/dark) persists in `localStorage` and propagates via a `data-theme`
+  attribute — pure CSS custom properties restyle the page; only the Three.js globe
+  (which CSS can't reach) watches the attribute via a `MutationObserver`.
+- The globe's people markers are emoji drawn onto canvases at runtime
+  (`THREE.CanvasTexture`) — no marker image assets to load or maintain.
